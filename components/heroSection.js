@@ -18,7 +18,7 @@ const links = [
   },
   {
     name: "Mail",
-    href: "mailto:lennartkaminsky@gmail.com",
+    href: "/",
     icon: "mail",
   },
 ];
