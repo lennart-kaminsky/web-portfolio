@@ -6,7 +6,7 @@ import Layout from "@/components/layout";
 
 export default function App({ Component, pageProps }) {
   const [theme, setTheme] = useLocalStorageState("theme", {
-    defaultValue: "darkTheme",
+    defaultValue: "lightTheme",
   });
 
   function handleSetTheme(theme) {

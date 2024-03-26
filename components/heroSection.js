@@ -1,183 +1,203 @@
-import { useState } from "react";
-import { AnimatePresence, easeInOut, motion } from "framer-motion";
-import styled from "styled-components";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
+import styled, { useTheme } from "styled-components";
+import { motion } from "framer-motion";
+import { breakpoints, fontSizes } from "@/styles/stylesConfig";
+import Icon from "@/components/icons";
+
+const links = [
+  {
+    name: "GitHub",
+    href: "https://github.com/lennart-kaminsky",
+    icon: "gitHub",
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/lennart-kaminsky/",
+    icon: "linkedIn",
+  },
+  {
+    name: "Mail",
+    href: "mailto:lennartkaminsky@gmail.com",
+    icon: "mail",
+  },
+];
 
 export default function HeroSection() {
-  const [nameType, setNameType] = useState("work");
+  const [startOfLine, setStartOfLine] = useState({
+    name: 0,
+    hej: 0,
+    textWidth: 0,
+    textHeight: 0,
+  });
+  const nameRef = useRef(null);
+  const hejRef = useRef(null);
+  const textRef = useRef(null);
+  const theme = useTheme();
 
-  const text = {
-    work: {
-      names: ["LENNART", "KAMINSKY"],
-      size: "11vw",
-      additionalInfo: "Web Developer".split(""),
-    },
-    drink: {
-      names: ["LENNI"],
-      size: "20vw",
-      additionalInfo: "Cheers. Noone calls me Lennart.".split(""),
-    },
-    socials: {
-      names: ["LENNSKI"],
-      size: "15vw",
-      additionalInfo: ["insta", "youtube", "linkedIn", "spotify"],
-    },
-  };
+  useEffect(() => {
+    if (nameRef.current) {
+      setStartOfLine({
+        ...startOfLine,
+        name: nameRef.current.offsetWidth,
+        hej: hejRef.current.offsetWidth,
+        textWidth: textRef.current.offsetWidth,
+        textHeight: textRef.current.offsetHeight,
+      });
+    }
+  }, [nameRef, hejRef, textRef]);
 
   return (
     <HeroSectionStyled>
-      <HeadlineContainer>
-        <p>
-          {text[nameType].additionalInfo.map((char, index) => (
-            <AnimatePresence key={index + char}>
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ scale: 0 }}
-                transition={{
-                  duration: 0.5,
-                  delay: (index + 1) / 10 + 3,
-                  scale: { delay: 0 },
-                }}
-              >
-                {char}
-              </motion.span>
-            </AnimatePresence>
+      <PhotoWrapper $startOfLine={startOfLine}>
+        <IconLinksStyled>
+          {links.map((link) => (
+            <motion.a
+              key={link.name}
+              href={link.href}
+              alt={link.name}
+              target="_blank"
+              whileHover={{
+                scale: 1.1,
+                transition: { duration: 0.2 },
+              }}
+              whileTap={{ scale: 0.8 }}
+            >
+              <Icon
+                variant={link.icon}
+                size="2.5rem"
+                color={theme.accentColorPrimary}
+              />
+            </motion.a>
           ))}
-        </p>
-        <NameHeadlineStyled $size={text[nameType].size}>
-          <AnimatePresence mode="wait">
-            {text[nameType].names.map((name, index) => (
-              <motion.span
-                key={name}
-                initial={{ x: "-100vw", scale: 1 }}
-                animate={{
-                  x: 0,
-                  scale: 1,
-                  opacity: 1,
-                  rotate: [0, 3, 0, -3, 0],
-                }}
-                exit={{ x: 0, scale: 50, opacity: [1, 1, 0] }}
-                whileHover={{ scale: 1.2 }}
-                transition={{
-                  x: { duration: 1 },
-                  scale: { duration: 2 },
-                  opacity: { duration: 2, times: [0, 0.5, 1] },
-                  rotate: {
-                    repeat: Infinity,
-                    duration: 4,
-                    ease: "linear",
-                    delay: index / 5,
-                  },
-                }}
-              >
-                {name}
-              </motion.span>
-            ))}
-          </AnimatePresence>
-        </NameHeadlineStyled>
-      </HeadlineContainer>
+        </IconLinksStyled>
+        <PhotoStyled
+          src="/images/portrait400px.png"
+          alt="Lennart Kaminsky"
+          width={400}
+          height={520}
+          priority
+        />
+      </PhotoWrapper>
 
-      <ButtonContainerStyled>
-        <motion.button
-          whileHover={{
-            scale: 1.1,
-            transition: { duration: 0.2 },
-          }}
-          whileTap={{ scale: 0.9 }}
-          type="button"
-          onClick={() => setNameType("work")}
-        >
-          work
-        </motion.button>
-        <motion.button
-          whileHover={{
-            scale: 1.1,
-            transition: { duration: 0.2 },
-          }}
-          whileTap={{ scale: 0.9 }}
-          type="button"
-          onClick={() => setNameType("drink")}
-        >
-          drink
-        </motion.button>
-        <motion.button
-          whileHover={{
-            scale: 1.1,
-            transition: { duration: 0.2 },
-          }}
-          whileTap={{ scale: 0.9 }}
-          type="button"
-          onClick={() => setNameType("socials")}
-        >
-          socials
-        </motion.button>
-      </ButtonContainerStyled>
+      {(startOfLine.name > 0 ||
+        startOfLine.hej > 0 ||
+        startOfLine.text > 0) && <LineStyled $startOfLine={startOfLine} />}
+      <Wrapper ref={textRef}>
+        <HeroTextStyled>
+          <span ref={hejRef}>Hej and welcome! I{"'"}m</span>
+        </HeroTextStyled>
+
+        <HeadlineStyled>
+          <span>
+            <span ref={nameRef}>LENNART</span>
+          </span>
+          <span>KAMINSKY</span>
+        </HeadlineStyled>
+        <HeroTextStyled>Junior Frontend Developer from Germany.</HeroTextStyled>
+        <ScrollDownIconStyled
+          variant="arrowDown"
+          size={fontSizes.xl}
+          color={theme.fontColorPrimary}
+        />
+      </Wrapper>
     </HeroSectionStyled>
   );
 }
 
 const HeroSectionStyled = styled.section`
-  position: relative;
-  width: 100vw;
   height: 100vh;
-  color: var(--fontColorLight);
-  background-color: var(--bgColorDark);
-  overflow: hidden;
-`;
-
-const HeadlineContainer = styled.div`
-  position: absolute;
-  top: 45vh;
-  transform: translate(0, -50%);
-  p {
-    width: 100vw;
-    position: absolute;
-    top: 27vw;
-    transform: translate(0, -50%);
-    font-size: 3vw;
-    padding-inline: 5vw;
-    margin: 0;
-  }
-`;
-
-const NameHeadlineStyled = styled.h1`
   display: flex;
   flex-direction: column;
-  font-family: var(--fontHeadline);
-  font-size: 12vw; // ${({ $size }) => $size}; //12vw;
-  letter-spacing: 0.5rem;
-  color: pink;
-  /* color: var(--fontColorLight); */
-  text-shadow: 0.7vw 0.7vw lightblue;
-  margin: 0;
-  padding-inline: 5vw;
-  span {
-    margin-block: -3vw;
-  }
-  @media screen and (max-width: 768px) {
-    transform: rotate(-90deg);
-    font-size: 18vw;
-    position: absolute;
+  justify-content: flex-end;
+  padding: var(--fontSizeS);
+  @media screen and (min-width: ${breakpoints.s}) {
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    justify-content: space-between;
   }
 `;
 
-const ButtonContainerStyled = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: 0;
+const Wrapper = styled.div`
   display: flex;
-  gap: 1rem;
-  padding: 1rem;
-  button {
-    border: none;
-    font-size: 4vw;
-    color: pink;
-    background-color: transparent;
+  flex-direction: column;
+`;
+
+const PhotoWrapper = styled(Wrapper)`
+  @media screen and (min-width: ${breakpoints.s}) {
+    position: absolute;
+    bottom: ${({ $startOfLine }) => `${$startOfLine.textHeight - 20}px`};
+    width: 100%;
+  }
+`;
+
+const IconLinksStyled = styled.div`
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  svg {
     @media (hover: hover) {
       &:hover {
-        color: lightblue;
-        cursor: pointer;
+        fill: ${({ theme }) => theme.fontColorPrimary};
       }
     }
+  }
+`;
+
+const PhotoStyled = styled(Image)`
+  width: 52%;
+  min-width: 200px;
+  height: auto;
+  align-self: flex-end;
+  @media screen and (min-width: ${breakpoints.s}) {
+    width: 40%;
+  }
+`;
+
+const HeadlineStyled = styled.h1`
+  font-family: var(--fontHeadline);
+  font-size: var(--fontSizeXL);
+  color: ${({ theme }) => theme.accentColorPrimary};
+  display: flex;
+  flex-direction: column;
+  line-height: 3.4rem;
+`;
+
+const HeroTextStyled = styled.p`
+  font-size: var(--fontSizeM);
+  line-height: 1.7rem;
+  max-width: 350px;
+  @media screen and (min-width: ${breakpoints.s}) {
+    max-width: none;
+    min-width: 470px;
+  }
+`;
+
+const LineStyled = styled.div`
+  width: 0.5rem;
+  height: 100%;
+  max-height: 250px;
+  margin-block: -2rem -3.5rem;
+  margin-left: ${({ $startOfLine }) => `${$startOfLine.name + 20}px`};
+  background-color: ${({ theme }) => theme.accentColorPrimary};
+  @media screen and (min-width: ${breakpoints.s}) {
+    height: 0.5rem;
+    max-height: none;
+    width: 100%;
+    margin-inline: ${({ $startOfLine }) =>
+      `-${$startOfLine.textWidth - $startOfLine.hej - 10}px 40px`};
+    margin-block: ${({ $startOfLine }) =>
+      `0 ${$startOfLine.textHeight - 15}px`};
+    z-index: 1;
+  }
+`;
+
+const ScrollDownIconStyled = styled(Icon)`
+  align-self: flex-end;
+  @media screen and (min-width: ${breakpoints.s}) {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 `;

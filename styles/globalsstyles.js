@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { Monoton, Poppins, Rammetto_One } from "next/font/google";
+import { Poppins, Rubik } from "next/font/google";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -13,24 +13,18 @@ const poppinsBold = Poppins({
   style: "normal",
 });
 
-const monoton = Monoton({
+const rubikBold = Rubik({
   subsets: ["latin"],
-  weight: "400",
-  style: "normal",
-});
-const rametto = Rammetto_One({
-  subsets: ["latin"],
-  weight: "400",
+  weight: "900",
   style: "normal",
 });
 
 //Colors Themes
 export const lightTheme = {
   title: "lightTheme",
-  bgColorPrimary: "#171A1C",
-  fontColorPrimary: "#f9f9f9",
-  accentColorPrimary: "#637368",
-  accentColorPrimary: "#a0a698",
+  bgColorPrimary: "#F2EBD8",
+  fontColorPrimary: "#0A0809",
+  accentColorPrimary: "#E12106",
 };
 
 export const darkTheme = {
@@ -38,14 +32,6 @@ export const darkTheme = {
   bgColorPrimary: "#171A1C",
   fontColorPrimary: "#f9f9f9",
   accentColorPrimary: "#637368",
-  accentColorSecondary: "#a0a698",
-};
-export const darkTheme2 = {
-  title: "darkTheme",
-  bgColorPrimary: "#171A1C",
-  fontColorPrimary: "#f9f9f9",
-  accentColorPrimary: "#637368",
-  accentColorSecondary: "#a0a698",
 };
 
 export default createGlobalStyle`
@@ -61,22 +47,18 @@ export default createGlobalStyle`
     //Fonts
     --fontRegular: ${poppins.style.fontFamily};
     --fontBold: ${poppinsBold.style.fontFamily};
-    --fontHeadline: ${rametto.style.fontFamily};
-    /* --fontHeadline: ${poppinsBold.style.fontFamily}; */
+    --fontHeadline: ${rubikBold.style.fontFamily};
 
     //Fontsizes
     --fontSizeS: 1rem;
-    --fontSizeM: 1.5rem;
+    --fontSizeM: 1.4rem;
     --fontSizeL: 2rem;
-
-    //Colors
-    --bgColorDark: #171A1C;
-    --fontColorLight: #f9f9f9;
-
+    --fontSizeXL: 3.8rem;
 }
 
 body {
     font-family: var(--fontRegular);
+    background-color: ${({ theme }) => theme.bgColorPrimary};
     color: ${({ theme }) => theme.fontColorPrimary};
 }
 `;
