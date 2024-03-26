@@ -1,7 +1,8 @@
 export const breakpoints = {
   s: "700px",
   m: "992px",
-  l: "1400px",
+  l: "1100px",
+  xl: "1400px",
 };
 
 export const fontSizes = {
@@ -9,4 +10,5 @@ export const fontSizes = {
   m: "1.5rem",
   l: "2rem",
   xl: "3.8rem",
+  xxl: "5rem",
 };

@@ -35,8 +35,14 @@ export default function HeroSection() {
   const textRef = useRef(null);
   const theme = useTheme();
 
+  const isClient = typeof window === "object";
+
   useEffect(() => {
-    if (nameRef.current) {
+    if (!isClient) {
+      return;
+    }
+
+    function handlePositionOfLine() {
       setStartOfLine({
         ...startOfLine,
         name: nameRef.current.offsetWidth,
@@ -45,8 +51,18 @@ export default function HeroSection() {
         textHeight: textRef.current.offsetHeight,
       });
     }
-  }, [nameRef, hejRef, textRef]);
+    if (nameRef.current) {
+      handlePositionOfLine();
+    }
 
+    window.addEventListener("resize", handlePositionOfLine);
+
+    return () => {
+      window.removeEventListener("resize", handlePositionOfLine);
+    };
+  }, [nameRef, hejRef, textRef, isClient]);
+
+  console.log(startOfLine);
   return (
     <HeroSectionStyled>
       <PhotoWrapper $startOfLine={startOfLine}>
@@ -110,8 +126,7 @@ const HeroSectionStyled = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: var(--fontSizeS);
-  @media screen and (min-width: ${breakpoints.s}) {
+  @media screen and (orientation: landscape) and (min-width: ${breakpoints.s}) {
     flex-direction: row-reverse;
     align-items: flex-end;
     justify-content: space-between;
@@ -124,7 +139,7 @@ const Wrapper = styled.div`
 `;
 
 const PhotoWrapper = styled(Wrapper)`
-  @media screen and (min-width: ${breakpoints.s}) {
+  @media screen and (orientation: landscape) and (min-width: ${breakpoints.s}) {
     position: absolute;
     bottom: ${({ $startOfLine }) => `${$startOfLine.textHeight - 20}px`};
     width: 100%;
@@ -150,9 +165,6 @@ const PhotoStyled = styled(Image)`
   min-width: 200px;
   height: auto;
   align-self: flex-end;
-  @media screen and (min-width: ${breakpoints.s}) {
-    width: 40%;
-  }
 `;
 
 const HeadlineStyled = styled.h1`
@@ -162,6 +174,22 @@ const HeadlineStyled = styled.h1`
   display: flex;
   flex-direction: column;
   line-height: 3.4rem;
+  @media screen and (min-width: ${breakpoints.s}) {
+    font-size: var(--fontSizeXXL);
+    line-height: 5rem;
+  }
+  @media screen and (min-width: ${breakpoints.m}) {
+    font-size: var(--fontSizeXXL);
+    line-height: 5rem;
+  }
+  @media screen and (min-width: ${breakpoints.l}) {
+    font-size: var(--fontSizeXXXL);
+    line-height: 7rem;
+  }
+  @media screen and (min-width: ${breakpoints.xl}) {
+    font-size: var(--fontSizeXXXXL);
+    line-height: 9rem;
+  }
 `;
 
 const HeroTextStyled = styled.p`
@@ -181,7 +209,7 @@ const LineStyled = styled.div`
   margin-block: -2rem -3.5rem;
   margin-left: ${({ $startOfLine }) => `${$startOfLine.name + 20}px`};
   background-color: ${({ theme }) => theme.accentColorPrimary};
-  @media screen and (min-width: ${breakpoints.s}) {
+  @media screen and (orientation: landscape) and (min-width: ${breakpoints.s}) {
     height: 0.5rem;
     max-height: none;
     width: 100%;
@@ -199,5 +227,13 @@ const ScrollDownIconStyled = styled(Icon)`
     position: absolute;
     bottom: 0;
     right: 0;
+  }
+  @media screen and (min-width: ${breakpoints.m}) {
+    bottom: var(--fontSizeL);
+    right: var(--fontSizeL);
+  }
+  @media screen and (min-width: ${breakpoints.l}) {
+    bottom: var(--fontSizeXL);
+    right: var(--fontSizeXL);
   }
 `;
