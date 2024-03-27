@@ -81,17 +81,17 @@ export default function HeroSection() {
             >
               <Icon
                 variant={link.icon}
-                size="2.5rem"
+                size={fontSizes.l}
                 color={theme.accentColorPrimary}
               />
             </motion.a>
           ))}
         </IconLinksStyled>
         <PhotoStyled
-          src="/images/portrait400px.png"
+          src="/images/portrait.png"
           alt="Lennart Kaminsky"
-          width={400}
-          height={520}
+          width={1000}
+          height={1300}
           priority
         />
       </PhotoWrapper>
@@ -217,7 +217,7 @@ const LineStyled = styled.div`
     grid-row: 2;
     grid-column: 2;
     height: 0.5rem;
-    width: 130%;
+    width: 140%;
     margin-inline: ${({ $startOfLine }) =>
       `-${$startOfLine.textWidth - $startOfLine.hej - 10}px 40px`};
     margin-block: ${({ $startOfLine }) =>
