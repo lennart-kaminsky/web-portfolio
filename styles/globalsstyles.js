@@ -1,6 +1,5 @@
 import { createGlobalStyle } from "styled-components";
 import { Poppins, Rubik } from "next/font/google";
-import { breakpoints } from "./stylesConfig";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -66,13 +65,6 @@ body {
 }
 
 section {
-  /* padding: var(--fontSizeS);
-  @media screen and (min-width: ${breakpoints.m}) {
-    padding: var(--fontSizeL);
-  }
-  @media screen and (min-width: ${breakpoints.l}) {
-    padding: var(--fontSizeXL);
-  } */
   padding: 3%;
 }
 `;
