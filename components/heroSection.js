@@ -156,7 +156,7 @@ export default function HeroSection() {
 }
 
 const HeroSectionStyled = styled.section`
-  height: 100vh;
+  height: 100dvh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr minmax(50px, 200px) auto;
