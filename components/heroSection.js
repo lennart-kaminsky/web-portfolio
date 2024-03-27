@@ -112,8 +112,8 @@ export default function HeroSection() {
         startOfLine.text > 0) && (
         <LineStyled
           $startOfLine={startOfLine}
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
           transition={{
             delay: 1,
             duration: 1.3,
@@ -257,7 +257,7 @@ const LineStyled = styled(motion.div)`
     margin-inline: ${({ $startOfLine }) =>
       `-${$startOfLine.textWidth - $startOfLine.hej - 10}px 40px`};
     margin-block: ${({ $startOfLine }) =>
-      `0 ${$startOfLine.textHeight - 15}px`};
+      `0 ${$startOfLine.textHeight - 17}px`};
     transform-origin: left;
   }
 `;
