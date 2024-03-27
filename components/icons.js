@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const icons = {
   mail: {
     title: "mail",
@@ -23,7 +25,7 @@ const icons = {
 
 export default function Icon({ variant, size = 50, color, ...rest }) {
   return (
-    <svg
+    <motion.svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox={icons[variant].viewBox}
       width={size}
@@ -32,6 +34,6 @@ export default function Icon({ variant, size = 50, color, ...rest }) {
     >
       <title>{icons[variant].viewBox}</title>
       <path d={icons[variant].path} />
-    </svg>
+    </motion.svg>
   );
 }

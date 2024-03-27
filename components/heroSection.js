@@ -63,9 +63,20 @@ export default function HeroSection() {
   }, [nameRef, hejRef, textRef, isClient]);
 
   console.log(startOfLine);
+
   return (
     <HeroSectionStyled>
-      <PhotoWrapper $startOfLine={startOfLine}>
+      <PhotoWrapper
+        $startOfLine={startOfLine}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: 1,
+          duration: 1.3,
+          ease: "easeOut",
+          type: "spring",
+        }}
+      >
         <IconLinksStyled>
           {links.map((link) => (
             <motion.a
@@ -98,12 +109,28 @@ export default function HeroSection() {
 
       {(startOfLine.name > 0 ||
         startOfLine.hej > 0 ||
-        startOfLine.text > 0) && <LineStyled $startOfLine={startOfLine} />}
-      <Wrapper ref={textRef}>
+        startOfLine.text > 0) && (
+        <LineStyled
+          $startOfLine={startOfLine}
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{
+            delay: 1,
+            duration: 1.3,
+            ease: "easeOut",
+            type: "spring",
+          }}
+        />
+      )}
+      <Wrapper
+        ref={textRef}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      >
         <HeroTextStyled>
           <span ref={hejRef}>Hej and welcome! I{"'"}m</span>
         </HeroTextStyled>
-
         <HeadlineStyled>
           <span>
             <span ref={nameRef}>LENNART</span>
@@ -115,6 +142,13 @@ export default function HeroSection() {
           variant="arrowDown"
           size={fontSizes.xl}
           color={theme.fontColorPrimary}
+          initial={{ opacity: 0, y: -50, rotate: 0 }}
+          animate={{ opacity: 1, y: 0, rotate: [0, 5, 0, -5, 0] }}
+          transition={{
+            delay: 2,
+            type: "spring",
+            rotate: { delay: 2.6, repeat: 3, duration: 0.2 },
+          }}
         />
       </Wrapper>
     </HeroSectionStyled>
@@ -133,7 +167,7 @@ const HeroSectionStyled = styled.section`
   }
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled(motion.div)`
   display: flex;
   flex-direction: column;
   @media screen and (orientation: landscape) {
@@ -207,12 +241,14 @@ const HeroTextStyled = styled.p`
   }
 `;
 
-const LineStyled = styled.div`
+const LineStyled = styled(motion.div)`
   width: 0.5rem;
   height: calc(100% + 6rem);
   margin-block: -3.5rem;
   margin-left: ${({ $startOfLine }) => `${$startOfLine.name + 20}px`};
   background-color: ${({ theme }) => theme.accentColorPrimary};
+  transform-origin: bottom;
+  z-index: 1;
   @media screen and (orientation: landscape) {
     grid-row: 2;
     grid-column: 2;
@@ -222,6 +258,7 @@ const LineStyled = styled.div`
       `-${$startOfLine.textWidth - $startOfLine.hej - 10}px 40px`};
     margin-block: ${({ $startOfLine }) =>
       `0 ${$startOfLine.textHeight - 15}px`};
+    transform-origin: left;
   }
 `;
 
