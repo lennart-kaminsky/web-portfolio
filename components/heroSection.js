@@ -123,31 +123,36 @@ export default function HeroSection() {
 
 const HeroSectionStyled = styled.section`
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  @media screen and (orientation: landscape) and (min-width: ${breakpoints.s}) {
-    flex-direction: row-reverse;
-    align-items: flex-end;
-    justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr minmax(50px, 200px) auto;
+  align-items: end;
+  @media screen and (orientation: landscape) {
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  @media screen and (orientation: landscape) {
+    grid-column: 1;
+  }
 `;
 
 const PhotoWrapper = styled(Wrapper)`
-  @media screen and (orientation: landscape) and (min-width: ${breakpoints.s}) {
-    position: absolute;
-    bottom: ${({ $startOfLine }) => `${$startOfLine.textHeight - 20}px`};
-    width: 100%;
+  align-items: flex-end;
+  justify-content: flex-end;
+  height: 100%;
+  @media screen and (orientation: landscape) {
+    grid-column: span 2;
+    justify-content: flex-end;
+    margin-bottom: -2rem;
   }
 `;
 
 const IconLinksStyled = styled.div`
-  align-self: flex-end;
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -161,20 +166,24 @@ const IconLinksStyled = styled.div`
 `;
 
 const PhotoStyled = styled(Image)`
-  width: 52%;
-  min-width: 200px;
+  width: 50%;
   height: auto;
-  align-self: flex-end;
+  @media screen and (orientation: landscape) {
+    height: auto;
+    width: 30%;
+    max-width: 400px;
+  }
 `;
 
 const HeadlineStyled = styled.h1`
   font-family: var(--fontHeadline);
   font-size: var(--fontSizeXL);
+  line-height: 3.4rem;
+  letter-spacing: 0.1rem;
   color: ${({ theme }) => theme.accentColorPrimary};
   display: flex;
   flex-direction: column;
-  line-height: 3.4rem;
-  @media screen and (min-width: ${breakpoints.s}) {
+  @media screen and (min-width: ${breakpoints.s}) and (min-height: 800px) {
     font-size: var(--fontSizeXXL);
     line-height: 5rem;
   }
@@ -184,11 +193,7 @@ const HeadlineStyled = styled.h1`
   }
   @media screen and (min-width: ${breakpoints.l}) {
     font-size: var(--fontSizeXXXL);
-    line-height: 7rem;
-  }
-  @media screen and (min-width: ${breakpoints.xl}) {
-    font-size: var(--fontSizeXXXXL);
-    line-height: 9rem;
+    line-height: 6rem;
   }
 `;
 
@@ -204,36 +209,27 @@ const HeroTextStyled = styled.p`
 
 const LineStyled = styled.div`
   width: 0.5rem;
-  height: 100%;
-  max-height: 250px;
-  margin-block: -2rem -3.5rem;
+  height: calc(100% + 6rem);
+  margin-block: -3.5rem;
   margin-left: ${({ $startOfLine }) => `${$startOfLine.name + 20}px`};
   background-color: ${({ theme }) => theme.accentColorPrimary};
-  @media screen and (orientation: landscape) and (min-width: ${breakpoints.s}) {
+  @media screen and (orientation: landscape) {
+    grid-row: 2;
+    grid-column: 2;
     height: 0.5rem;
-    max-height: none;
-    width: 100%;
+    width: 130%;
     margin-inline: ${({ $startOfLine }) =>
       `-${$startOfLine.textWidth - $startOfLine.hej - 10}px 40px`};
     margin-block: ${({ $startOfLine }) =>
       `0 ${$startOfLine.textHeight - 15}px`};
-    z-index: 1;
   }
 `;
 
 const ScrollDownIconStyled = styled(Icon)`
   align-self: flex-end;
-  @media screen and (min-width: ${breakpoints.s}) {
+  @media screen and (orientation: landscape) {
     position: absolute;
     bottom: 0;
     right: 0;
-  }
-  @media screen and (min-width: ${breakpoints.m}) {
-    bottom: var(--fontSizeL);
-    right: var(--fontSizeL);
-  }
-  @media screen and (min-width: ${breakpoints.l}) {
-    bottom: var(--fontSizeXL);
-    right: var(--fontSizeXL);
   }
 `;

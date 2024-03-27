@@ -56,8 +56,7 @@ export default createGlobalStyle`
     --fontSizeL: 2rem;
     --fontSizeXL: 3.8rem;
     --fontSizeXXL: 6rem;
-    --fontSizeXXXL: 7.5rem;
-    --fontSizeXXXXL: 10rem;
+    --fontSizeXXXL: 7rem;
 }
 
 body {
@@ -67,12 +66,13 @@ body {
 }
 
 section {
-  padding: var(--fontSizeS);
+  /* padding: var(--fontSizeS);
   @media screen and (min-width: ${breakpoints.m}) {
     padding: var(--fontSizeL);
   }
   @media screen and (min-width: ${breakpoints.l}) {
     padding: var(--fontSizeXL);
-  }
+  } */
+  padding: 3%;
 }
 `;
