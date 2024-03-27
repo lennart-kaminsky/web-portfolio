@@ -156,12 +156,13 @@ export default function HeroSection() {
 }
 
 const HeroSectionStyled = styled.section`
-  height: 100vh;
+  height: 95vh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr minmax(50px, 200px) auto;
   align-items: end;
   @media screen and (orientation: landscape) {
+    height: 100vh;
     grid-template-rows: 1fr auto;
     grid-template-columns: 1fr 1fr;
   }
