@@ -59,6 +59,8 @@ export default createGlobalStyle`
     --fontSizeXXXL: 7rem;
 }
 
+html {height: 100%;}
+
 body {
     font-family: var(--fontRegular);
     background-color: ${({ theme }) => theme.bgColorPrimary};
