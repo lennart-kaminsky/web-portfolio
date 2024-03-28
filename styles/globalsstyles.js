@@ -30,8 +30,8 @@ export const lightTheme = {
 export const darkTheme = {
   title: "darkTheme",
   bgColorPrimary: "#171A1C",
-  fontColorPrimary: "#f9f9f9",
-  accentColorPrimary: "#637368",
+  fontColorPrimary: "#F8F7F2",
+  accentColorPrimary: "#E12106",
 };
 
 export default createGlobalStyle`
@@ -62,9 +62,14 @@ body {
     font-family: var(--fontRegular);
     background-color: ${({ theme }) => theme.bgColorPrimary};
     color: ${({ theme }) => theme.fontColorPrimary};
+    transition: background-color 0.7s, color 0.7s;
 }
 
 section {
   padding: 3%;
+}
+
+svg {
+  transition: fill 0.5s;
 }
 `;
