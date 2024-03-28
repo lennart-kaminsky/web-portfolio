@@ -4,6 +4,7 @@ import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
 import { breakpoints, fontSizes } from "@/styles/stylesConfig";
 import Icon from "@/components/icons";
+import { ButtonDarkMode } from "@/components/buttons";
 
 const links = [
   {
@@ -62,8 +63,6 @@ export default function HeroSection() {
     };
   }, [nameRef, hejRef, textRef, isClient]);
 
-  console.log(startOfLine);
-
   return (
     <HeroSectionStyled>
       <PhotoWrapper
@@ -78,6 +77,7 @@ export default function HeroSection() {
         }}
       >
         <IconLinksStyled>
+          <ButtonDarkMode />
           {links.map((link) => (
             <motion.a
               key={link.name}

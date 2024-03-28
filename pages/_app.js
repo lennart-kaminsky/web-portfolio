@@ -1,23 +1,17 @@
-import useLocalStorageState from "use-local-storage-state";
 import { ThemeProvider } from "styled-components";
-import getTheme from "@/utils/getTheme";
 import GlobalStyle from "@/styles/globalsstyles";
+import { darkTheme, lightTheme } from "@/styles/globalsstyles";
+import useSettingsStore from "@/stores/settingsStore";
 import Layout from "@/components/layout";
 
 export default function App({ Component, pageProps }) {
-  const [theme, setTheme] = useLocalStorageState("theme", {
-    defaultValue: "lightTheme",
-  });
-
-  function handleSetTheme(theme) {
-    setTheme(theme);
-  }
+  const { darkMode } = useSettingsStore();
 
   return (
     <>
-      <ThemeProvider theme={getTheme(theme)}>
+      <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
         <GlobalStyle />
-        <Layout theme={theme} onSetTheme={handleSetTheme}>
+        <Layout>
           <Component {...pageProps} />
         </Layout>
       </ThemeProvider>
