@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import projects from "@/lib/projects";
-import ProjectCard from "@/components/ProjectCard";
+import ProjectCard from "@/components/projectCard";
 
 export default function ProjectsSection() {
   return (
@@ -14,8 +14,8 @@ export default function ProjectsSection() {
 
 const ProjectsSectionStyled = styled.section`
   width: 100%;
-  padding-top: 5rem;
+  padding-block: 5rem 15rem;
   padding-inline: 0;
   display: grid;
-  gap: 2rem;
+  gap: 5rem;
 `;
