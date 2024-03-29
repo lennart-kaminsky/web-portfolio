@@ -30,7 +30,7 @@ export const lightTheme = {
 export const darkTheme = {
   title: "darkTheme",
   bgColorPrimary: "#171A1C",
-  fontColorPrimary: "#F8F7F2",
+  fontColorPrimary: "#F2EBD8",
   accentColorPrimary: "#E12106",
 };
 
@@ -50,6 +50,7 @@ export default createGlobalStyle`
     --fontHeadline: ${rubikBold.style.fontFamily};
 
     //Fontsizes
+    --fontSizeXS: 0.9rem;
     --fontSizeS: 1rem;
     --fontSizeM: 1.4rem;
     --fontSizeL: 2rem;
@@ -62,7 +63,7 @@ body {
     font-family: var(--fontRegular);
     background-color: ${({ theme }) => theme.bgColorPrimary};
     color: ${({ theme }) => theme.fontColorPrimary};
-    transition: background-color 0.7s, color 0.7s;
+    transition: background-color 2s, color 2s;
 }
 
 section {
@@ -71,5 +72,10 @@ section {
 
 svg {
   transition: fill 0.5s;
+}
+
+a {
+text-decoration: none;
+color: inherit;
 }
 `;
