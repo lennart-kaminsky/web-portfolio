@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
-import { breakpoints, fontSizes } from "@/styles/stylesConfig";
+import {
+  breakpoints,
+  buttonAnimations,
+  fontSizes,
+} from "@/styles/stylesConfig";
 import Icon from "@/components/icons";
 import { ButtonDarkMode } from "@/components/buttons";
 
@@ -84,11 +88,9 @@ export default function HeroSection() {
               href={link.href}
               alt={link.name}
               target="_blank"
-              whileHover={{
-                scale: 1.1,
-                transition: { duration: 0.2 },
-              }}
-              whileTap={{ scale: 0.8 }}
+              variants={buttonAnimations}
+              whileHover="hover"
+              whileTap="tap"
             >
               <Icon
                 variant={link.icon}
@@ -125,8 +127,7 @@ export default function HeroSection() {
       <Wrapper
         ref={textRef}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5, duration: 0.5 }}
+        animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.5 } }}
       >
         <HeroTextStyled>
           <span ref={hejRef}>Hej and welcome! I{"'"}m</span>

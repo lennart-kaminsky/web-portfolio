@@ -12,3 +12,16 @@ export const fontSizes = {
   xl: "3.8rem",
   xxl: "5rem",
 };
+
+//Animations
+export const buttonAnimations = {
+  hover: {
+    scale: 1.1,
+    transition: {
+      duration: 0.2,
+    },
+  },
+  tap: {
+    scale: 0.9,
+  },
+};

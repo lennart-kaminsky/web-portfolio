@@ -1,6 +1,6 @@
 import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
-import { fontSizes } from "@/styles/stylesConfig";
+import { buttonAnimations, fontSizes } from "@/styles/stylesConfig";
 import { darkTheme, lightTheme } from "@/styles/globalsstyles";
 import useSettingsStore from "@/stores/settingsStore";
 import Icon from "@/components/icons";
@@ -14,11 +14,9 @@ export function ButtonDarkMode() {
       type="button"
       onClick={() => toggleDarkMode()}
       $darkMode={darkMode}
-      whileHover={{
-        scale: 1.1,
-        transition: { duration: 0.2 },
-      }}
-      whileTap={{ scale: 0.9 }}
+      variants={buttonAnimations}
+      whileHover="hover"
+      whileTap="tap"
     >
       <Icon
         variant={darkMode ? "lightMode" : "darkMode"}
