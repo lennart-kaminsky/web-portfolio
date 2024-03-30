@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { Poppins, Rubik } from "next/font/google";
+import { breakpoints } from "./stylesConfig";
 
 const poppins = Poppins({
   subsets: ["latin"],

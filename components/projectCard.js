@@ -178,13 +178,6 @@ const ProjectImageStyled = styled(Image)`
 const ProjectDetailsStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  /* h3 {
-    display: none;
-    font-size: var(--fontSizeS);
-    font-family: var(--fontBold);
-    letter-spacing: 0.1rem;
-    margin-top: 1rem;
-  } */
   p,
   ul {
     display: none;
@@ -268,7 +261,6 @@ const LineStyled = styled(motion.div)`
     height: 0.5rem;
     z-index: 1;
     margin-bottom: 2rem;
-    /* margin-inline: ${({ $even }) => ($even ? "-20% 0%" : "0 0%")}; */
     align-self: ${({ $even }) => ($even ? "flex-end" : "flex-start")};
     background-color: ${({ theme }) => theme.accentColorPrimary};
     transform-origin: ${({ $even }) => ($even ? "left" : "right")};

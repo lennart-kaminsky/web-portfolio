@@ -157,7 +157,6 @@ export default function HeroSection() {
 }
 
 const HeroSectionStyled = styled.section`
-  background-color: lightgreen;
   //for weird auto scroll on chrome mobile on page load
   overflow-anchor: none;
   padding-bottom: 13%;
@@ -174,6 +173,9 @@ const HeroSectionStyled = styled.section`
     height: 100vh;
     grid-template-rows: 1fr auto;
     grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (orientation: landscape) and (min-width: ${breakpoints.xl}) {
+    padding-inline: 8%;
   }
 `;
 
@@ -273,10 +275,10 @@ const LineStyled = styled(motion.div)`
 `;
 
 const ScrollDownIconStyled = styled(Icon)`
-  /* align-self: flex-end;
-  @media screen and (orientation: landscape) { */
   position: absolute;
   bottom: 3vw;
   right: 3vw;
-  /* } */
+  @media screen and (orientation: landscape) and (min-width: ${breakpoints.xl}) {
+    right: 8vw;
+  }
 `;
