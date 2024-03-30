@@ -160,12 +160,16 @@ const HeroSectionStyled = styled.section`
   background-color: lightgreen;
   //for weird auto scroll on chrome mobile on page load
   overflow-anchor: none;
+  padding-bottom: 13%;
 
   height: 93vh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr minmax(50px, 200px) auto;
   align-items: end;
+  @media screen and (min-width: ${breakpoints.s}) {
+    padding-bottom: 3%;
+  }
   @media screen and (orientation: landscape) {
     height: 100vh;
     grid-template-rows: 1fr auto;
@@ -273,6 +277,6 @@ const ScrollDownIconStyled = styled(Icon)`
   @media screen and (orientation: landscape) { */
   position: absolute;
   bottom: 3vw;
-  right: 3%;
+  right: 3vw;
   /* } */
 `;
