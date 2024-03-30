@@ -296,7 +296,7 @@ const SmallLineStyled = styled(motion.div)`
   width: ${({ $width }) => `${$width - 5}px`};
   background-color: ${({ theme }) => theme.accentColorPrimary};
   margin-top: var(--fontSizeXXS);
-  transform-origin: left;
+  transform-origin: right;
   @media screen and (min-width: ${breakpoints.m}) {
     display: none;
   }
