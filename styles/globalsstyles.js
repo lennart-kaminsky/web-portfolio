@@ -66,8 +66,13 @@ body {
     transition: background-color 2s, color 2s;
 }
 
+main {
+  padding-bottom: 5rem;
+}
+
 section {
-  /* padding: 3%; */
+  padding: 3%;
+  margin-bottom: 5rem;
 }
 
 svg {
