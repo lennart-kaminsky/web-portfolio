@@ -2,21 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styled, { useTheme } from "styled-components";
 import { motion, useInView, useAnimationControls } from "framer-motion";
-import {
-  breakpoints,
-  buttonAnimations,
-  fontSizes,
-} from "@/styles/stylesConfig";
+import { breakpoints, buttonAnimations } from "@/styles/stylesConfig";
 
 export default function ProjectCard({ project, index }) {
-  const [cardHeight, setCardHeight] = useState(0);
-  const cardRef = useRef(null);
-  const cardIsInView = useInView(cardRef, {
+  const [cardSize, setCardHeight] = useState({ width: 0, height: 0 });
+  const imageRef = useRef(null);
+  const cardCoverRef = useRef(null);
+  const cardHeadlineRef = useRef(null);
+
+  const imageIsInView = useInView(imageRef, {
     amount: 1,
-    // margin: "0% 0% -8% 0%",
     once: true,
   });
-  const cardCoverRef = useRef(null);
 
   const theme = useTheme();
 
@@ -29,14 +26,17 @@ export default function ProjectCard({ project, index }) {
 
   useEffect(() => {
     if (cardCoverRef.current) {
-      setCardHeight(cardCoverRef.current.offsetHeight + 60);
+      setCardHeight({
+        width: cardCoverRef.current.offsetWidth,
+        height: cardCoverRef.current.offsetHeight,
+      });
     } else {
-      setCardHeight(0);
+      setCardHeight({ width: 0, height: 0 });
     }
   }, [cardCoverRef.current]);
 
   useEffect(() => {
-    if (cardIsInView) {
+    if (imageIsInView) {
       coverControls.start({
         scaleY: 0,
         transition: { duration: 0.8, ease: "easeInOut" },
@@ -57,14 +57,14 @@ export default function ProjectCard({ project, index }) {
       lineControls.start({
         scale: 1,
         transition: {
-          duration: 1.3,
+          duration: 1.7, //1.3,
           ease: "easeOut",
           delay: 0.6,
           type: "spring",
         },
       });
     }
-  }, [cardIsInView]);
+  }, [imageIsInView]);
 
   useEffect(() => {
     titleControls.set({
@@ -74,7 +74,6 @@ export default function ProjectCard({ project, index }) {
 
   return (
     <ProjectCardStyled
-      ref={cardRef}
       $even={even}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
@@ -82,13 +81,29 @@ export default function ProjectCard({ project, index }) {
     >
       <HeadlineImageContainer>
         {/* cardheight > 200 bc otherwise it will be set to a low number bc it refreshes twice */}
-        {cardHeight > 200 && (
-          <motion.h2 initial={{ y: cardHeight / 2 }} animate={titleControls}>
+        {cardSize.height > 200 && (
+          <motion.h2
+            ref={cardHeadlineRef}
+            initial={{ y: (cardSize.height + 60) / 2 }}
+            animate={titleControls}
+          >
+            <span>
+              {cardSize.height > 200 && cardHeadlineRef.current && (
+                <SmallLineStyled
+                  $width={
+                    (cardSize.width - cardHeadlineRef.current.offsetWidth) / 2
+                  }
+                  initial={{ x: "calc(-100% - 5px)", scale: 0 }}
+                  animate={lineControls}
+                />
+              )}
+            </span>
             {project.title}
           </motion.h2>
         )}
         <ImageWrapperStyled>
           <ProjectImageStyled
+            ref={imageRef}
             src={project.image.url}
             width={project.image.width}
             height={project.image.height}
@@ -146,6 +161,7 @@ const ProjectCardStyled = styled(motion.article)`
   flex-direction: column;
   gap: 0.5rem;
   h2 {
+    position: relative;
     font-size: var(--fontSizeM);
     font-family: var(--fontHeadline);
     letter-spacing: 0.1rem;
@@ -166,7 +182,7 @@ const ProjectCardStyled = styled(motion.article)`
 const HeadlineImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.5rem;
   align-items: center;
 
   @media screen and (min-width: ${breakpoints.m}) {
@@ -186,18 +202,17 @@ const ProjectImageStyled = styled(Image)`
 const ProjectDetailsStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
   ul {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
     column-gap: 1rem;
   }
-  /* ul, */
   p {
     display: none;
   }
   @media screen and (min-width: ${breakpoints.m}) {
-    gap: 1rem;
     width: 35%;
   }
   @media screen and (min-width: ${breakpoints.xl}) {
@@ -212,8 +227,11 @@ const ProjectHeadline = styled.h3`
   font-size: var(--fontSizeS);
   font-family: var(--fontBold);
   letter-spacing: 0.1rem;
-  margin-top: 1rem;
+  @media screen and (min-width: ${breakpoints.m}) {
+    margin-top: var(--fontSizeM);
+  }
 `;
+
 const ProjectAboutHeadline = styled(ProjectHeadline)`
   @media screen and (min-width: ${breakpoints.xl}) {
     display: block;
@@ -229,7 +247,6 @@ const ProjectToolsHeadline = styled(ProjectHeadline)`
 const ProjectLinksContainerStyled = styled(motion.div)`
   display: flex;
   gap: 1rem;
-  /* justify-content: center; */
   a {
     width: 1.7rem;
     height: 1.7rem;
@@ -271,6 +288,18 @@ const ProjectCoverStyled = styled(motion.div)`
   background-color: ${({ theme, $even }) =>
     $even ? theme.accentColorPrimary : theme.fontColorPrimary};
   transform-origin: top;
+`;
+
+const SmallLineStyled = styled(motion.div)`
+  position: absolute;
+  height: 0.5rem;
+  width: ${({ $width }) => `${$width - 5}px`};
+  background-color: ${({ theme }) => theme.accentColorPrimary};
+  margin-top: var(--fontSizeXXS);
+  transform-origin: left;
+  @media screen and (min-width: ${breakpoints.m}) {
+    display: none;
+  }
 `;
 
 const LineStyled = styled(motion.div)`

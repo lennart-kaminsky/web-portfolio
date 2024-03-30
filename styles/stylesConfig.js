@@ -6,6 +6,8 @@ export const breakpoints = {
 };
 
 export const fontSizes = {
+  xxs: "0.6rem",
+  xs: "0.9rem",
   s: "1rem",
   m: "1.5rem",
   l: "2rem",

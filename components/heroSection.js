@@ -170,7 +170,8 @@ const HeroSectionStyled = styled.section`
     padding-bottom: 3%;
   }
   @media screen and (orientation: landscape) {
-    height: 100vh;
+    height: auto;
+    min-height: 100vh;
     grid-template-rows: 1fr auto;
     grid-template-columns: 1fr 1fr;
   }
