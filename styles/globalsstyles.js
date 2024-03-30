@@ -59,10 +59,6 @@ export default createGlobalStyle`
     --fontSizeXXXL: 7rem;
 }
 
-/* html , body , main {
-    height: 100%;
-} */
-
 body {
     font-family: var(--fontRegular);
     background-color: ${({ theme }) => theme.bgColorPrimary};
@@ -71,7 +67,7 @@ body {
 }
 
 section {
-  padding: 3%;
+  /* padding: 3%; */
 }
 
 svg {

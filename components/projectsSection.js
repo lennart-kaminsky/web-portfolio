@@ -15,7 +15,7 @@ export default function ProjectsSection() {
 
 const ProjectsSectionStyled = styled.section`
   width: 100%;
-  margin-block: 5rem 15rem;
+  /* margin-block: 5rem 15rem; */
   padding-inline: 0;
   display: flex;
   flex-direction: column;
