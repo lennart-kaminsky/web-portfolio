@@ -272,7 +272,7 @@ const ScrollDownIconStyled = styled(Icon)`
   /* align-self: flex-end;
   @media screen and (orientation: landscape) { */
   position: absolute;
-  bottom: 3%;
+  bottom: 3vw;
   right: 3%;
   /* } */
 `;
