@@ -14,6 +14,7 @@ export default function ProjectsSection() {
 }
 
 const ProjectsSectionStyled = styled.section`
+  background-color: lightcyan;
   width: 100%;
   /* margin-block: 5rem 15rem; */
   padding-inline: 0;

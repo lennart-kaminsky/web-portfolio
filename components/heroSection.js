@@ -157,10 +157,11 @@ export default function HeroSection() {
 }
 
 const HeroSectionStyled = styled.section`
+  background-color: lightgreen;
   //for weird auto scroll on chrome mobile on page load
   overflow-anchor: none;
 
-  height: 95vh;
+  height: 93vh;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr minmax(50px, 200px) auto;
