@@ -51,6 +51,7 @@ export default createGlobalStyle`
     --fontHeadline: ${rubikBold.style.fontFamily};
 
     //Fontsizes
+    --fontSizeXXS: 0.6rem;
     --fontSizeXS: 0.9rem;
     --fontSizeS: 1rem;
     --fontSizeM: 1.4rem;
@@ -73,7 +74,7 @@ main {
 
 section {
   padding: 3%;
-  margin-bottom: 5rem;
+  margin-bottom: 20vh;
 }
 
 svg {

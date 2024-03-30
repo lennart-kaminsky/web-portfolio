@@ -14,7 +14,6 @@ export default function ProjectsSection() {
 
 const ProjectsSectionStyled = styled.section`
   width: 100%;
-  padding-inline: 0;
   display: flex;
   flex-direction: column;
   gap: 5rem;

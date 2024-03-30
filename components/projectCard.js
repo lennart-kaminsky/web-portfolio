@@ -13,7 +13,7 @@ export default function ProjectCard({ project, index }) {
   const cardRef = useRef(null);
   const cardIsInView = useInView(cardRef, {
     amount: 1,
-    margin: "0% 0% -10% 0%",
+    // margin: "0% 0% -8% 0%",
     once: true,
   });
   const cardCoverRef = useRef(null);
@@ -22,7 +22,7 @@ export default function ProjectCard({ project, index }) {
 
   const coverControls = useAnimationControls();
   const titleControls = useAnimationControls();
-  const linkControls = useAnimationControls();
+  const detailsControls = useAnimationControls();
   const lineControls = useAnimationControls();
 
   const even = index % 2 === 0;
@@ -43,10 +43,13 @@ export default function ProjectCard({ project, index }) {
       });
       titleControls.start({
         y: 0,
-        transition: { duration: 0.8, ease: "easeInOut" },
         color: theme.fontColorPrimary,
+        transition: {
+          duration: 0.8,
+          ease: "easeInOut",
+        },
       });
-      linkControls.start({
+      detailsControls.start({
         opacity: 1,
         x: 0,
         transition: { duration: 0.8, ease: "backInOut", delay: 0.6 },
@@ -70,7 +73,13 @@ export default function ProjectCard({ project, index }) {
   }, [theme]);
 
   return (
-    <ProjectCardStyled ref={cardRef} $even={even}>
+    <ProjectCardStyled
+      ref={cardRef}
+      $even={even}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
+      viewport={{ once: true, amount: 0.3 }}
+    >
       <HeadlineImageContainer>
         {/* cardheight > 200 bc otherwise it will be set to a low number bc it refreshes twice */}
         {cardHeight > 200 && (
@@ -96,7 +105,7 @@ export default function ProjectCard({ project, index }) {
       <ProjectDetailsStyled
         $even={even}
         initial={{ opacity: 0, x: -100 }}
-        animate={linkControls}
+        animate={detailsControls}
       >
         <ProjectAboutHeadline>About</ProjectAboutHeadline>
         <p>{project.description}</p>
@@ -106,20 +115,19 @@ export default function ProjectCard({ project, index }) {
             <li key={tool}>{tool}</li>
           ))}
         </ul>
-        <ProjectLinksContainerStyled
-          $even={even}
-          // initial={{ opacity: 0, x: -100 }}
-          // animate={linkControls}
-        >
+        <ProjectLinksContainerStyled $even={even}>
           {project.hrefs.map((href) => (
             <motion.a
               key={href.title}
               href={href.url}
               target="_blank"
               variants={buttonAnimations}
+              whileHover="hover"
               whileTap="tap"
             >
-              {`View ${href.title}`}
+              {href.title.split("").map((char, index) => (
+                <span key={index}>{char}</span>
+              ))}
             </motion.a>
           ))}
         </ProjectLinksContainerStyled>
@@ -133,7 +141,7 @@ export default function ProjectCard({ project, index }) {
   );
 }
 
-const ProjectCardStyled = styled.article`
+const ProjectCardStyled = styled(motion.article)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -178,19 +186,19 @@ const ProjectImageStyled = styled(Image)`
 const ProjectDetailsStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  p,
   ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+  }
+  /* ul, */
+  p {
     display: none;
   }
   @media screen and (min-width: ${breakpoints.m}) {
     gap: 1rem;
     width: 35%;
-    ul {
-      list-style: none;
-      display: flex;
-      flex-wrap: wrap;
-      column-gap: 1rem;
-    }
   }
   @media screen and (min-width: ${breakpoints.xl}) {
     p {
@@ -213,28 +221,38 @@ const ProjectAboutHeadline = styled(ProjectHeadline)`
 `;
 
 const ProjectToolsHeadline = styled(ProjectHeadline)`
+  display: block;
   @media screen and (min-width: ${breakpoints.m}) {
-    display: block;
   }
 `;
 
 const ProjectLinksContainerStyled = styled(motion.div)`
   display: flex;
   gap: 1rem;
-  justify-content: center;
+  /* justify-content: center; */
   a {
-    width: 6.5rem;
-    background-color: ${({ theme }) => theme.fontColorPrimary};
-    color: ${({ theme }) => theme.bgColorPrimary};
-    font-size: var(--fontSizeXS);
+    width: 1.7rem;
+    height: 1.7rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     text-align: center;
-    padding-block: 0.2rem;
-    border: 1px solid ${({ theme }) => theme.fontColorPrimary};
+    font-family: var(--fontBold);
+    font-size: var(--fontSizeXXS);
+    line-height: var(--fontSizeXXS);
+    text-transform: uppercase;
+    background-color: ${({ theme }) => theme.accentColorPrimary};
+    color: ${({ theme }) => theme.bgColorPrimary};
+
+    padding: 0.5rem;
+    border-radius: 100%;
+
     @media (hover: hover) {
       &:hover {
-        background-color: ${({ theme }) => theme.bgColorPrimary};
-        border: 1px solid ${({ theme }) => theme.fontColorPrimary};
-        color: ${({ theme }) => theme.fontColorPrimary};
+        background-color: ${({ theme }) => theme.fontColorPrimary};
       }
     }
   }
