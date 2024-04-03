@@ -16,5 +16,5 @@ const ProjectsSectionStyled = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 8rem;
 `;

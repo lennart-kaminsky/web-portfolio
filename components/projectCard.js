@@ -41,14 +41,15 @@ export default function ProjectCard({ project, index }) {
         scaleY: 0,
         transition: { duration: 0.8, ease: "easeInOut" },
       });
-      titleControls.start({
-        y: 0,
-        color: theme.fontColorPrimary,
-        transition: {
-          duration: 0.8,
-          ease: "easeInOut",
-        },
-      });
+      if (cardSize.height > 0 && cardHeadlineRef.current)
+        titleControls.start({
+          y: -cardSize.height / 2 - cardHeadlineRef.current.offsetHeight / 2,
+          color: theme.fontColorPrimary,
+          transition: {
+            duration: 0.8,
+            ease: "easeInOut",
+          },
+        });
       detailsControls.start({
         opacity: 1,
         x: 0,
@@ -57,7 +58,7 @@ export default function ProjectCard({ project, index }) {
       lineControls.start({
         scale: 1,
         transition: {
-          duration: 1.7, //1.3,
+          duration: 1.7,
           ease: "easeOut",
           delay: 0.6,
           type: "spring",
@@ -67,9 +68,11 @@ export default function ProjectCard({ project, index }) {
   }, [imageIsInView]);
 
   useEffect(() => {
-    titleControls.set({
-      color: theme.fontColorPrimary,
-    });
+    if (cardSize.height > 0) {
+      titleControls.set({
+        color: theme.fontColorPrimary,
+      });
+    }
   }, [theme]);
 
   return (
@@ -80,27 +83,24 @@ export default function ProjectCard({ project, index }) {
       viewport={{ once: true, amount: 0.3 }}
     >
       <HeadlineImageContainer>
-        {/* cardheight > 200 bc otherwise it will be set to a low number bc it refreshes twice */}
-        {cardSize.height > 200 && (
-          <motion.h2
-            ref={cardHeadlineRef}
-            initial={{ y: (cardSize.height + 60) / 2 }}
-            animate={titleControls}
-          >
-            <span>
-              {cardSize.height > 200 && cardHeadlineRef.current && (
-                <SmallLineStyled
-                  $width={
-                    (cardSize.width - cardHeadlineRef.current.offsetWidth) / 2
-                  }
-                  initial={{ x: "calc(-100% - 5px)", scale: 0 }}
-                  animate={lineControls}
-                />
-              )}
-            </span>
-            {project.title}
-          </motion.h2>
-        )}
+        <motion.h2
+          ref={cardHeadlineRef}
+          initial={{ y: 0 }}
+          animate={titleControls}
+        >
+          <span>
+            {cardSize.width > 0 && cardHeadlineRef.current && (
+              <SmallLineStyled
+                $width={
+                  (cardSize.width - cardHeadlineRef.current.offsetWidth) / 2
+                }
+                initial={{ x: "calc(-100% - 5px)", scale: 0 }}
+                animate={lineControls}
+              />
+            )}
+          </span>
+          {project.title}
+        </motion.h2>
         <ImageWrapperStyled>
           <ProjectImageStyled
             ref={imageRef}
@@ -160,15 +160,6 @@ const ProjectCardStyled = styled(motion.article)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  h2 {
-    position: relative;
-    font-size: var(--fontSizeM);
-    font-family: var(--fontHeadline);
-    letter-spacing: 0.1rem;
-    color: ${({ theme }) => theme.bgColorPrimary};
-    text-transform: uppercase;
-    z-index: 1;
-  }
 
   @media screen and (min-width: ${breakpoints.m}) {
     grid-column: ${({ $even }) => ($even ? "1 / span 2" : "2 / span 2")};
@@ -184,6 +175,18 @@ const HeadlineImageContainer = styled.div`
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
+  justify-content: center;
+
+  h2 {
+    position: absolute;
+    font-size: var(--fontSizeM);
+    font-family: var(--fontHeadline);
+    letter-spacing: 0.1rem;
+    color: ${({ theme }) => theme.bgColorPrimary};
+    text-transform: uppercase;
+    padding-bottom: 0.5rem;
+    z-index: 1;
+  }
 
   @media screen and (min-width: ${breakpoints.m}) {
     width: 60%;
@@ -263,7 +266,6 @@ const ProjectLinksContainerStyled = styled(motion.div)`
     text-transform: uppercase;
     background-color: ${({ theme }) => theme.accentColorPrimary};
     color: ${({ theme }) => theme.bgColorPrimary};
-
     padding: 0.5rem;
     border-radius: 100%;
 
@@ -292,10 +294,10 @@ const ProjectCoverStyled = styled(motion.div)`
 
 const SmallLineStyled = styled(motion.div)`
   position: absolute;
-  height: 0.5rem;
+  height: 0.3rem;
   width: ${({ $width }) => `${$width - 5}px`};
   background-color: ${({ theme }) => theme.accentColorPrimary};
-  margin-top: var(--fontSizeXXS);
+  margin-top: calc(var(--fontSizeXXS) + 0.1rem);
   transform-origin: right;
   @media screen and (min-width: ${breakpoints.m}) {
     display: none;
