@@ -78,9 +78,9 @@ export default function ProjectCard({ project, index }) {
   return (
     <ProjectCardStyled
       $even={even}
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
-      viewport={{ once: true, amount: 0.3 }}
+      // initial={{ opacity: 0 }}
+      // whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
+      // viewport={{ once: true, amount: 0.3 }}
     >
       <HeadlineImageContainer>
         <motion.h2
