@@ -24,22 +24,25 @@ export default function ProjectCard({ project, index }) {
     if (imageIsInView) {
       coverControls.start({
         scaleY: 0,
-        transition: { duration: 0.8, ease: "easeInOut" },
+        transition: { duration: 0.8, ease: "easeInOut", delay: 0.2 },
       });
       titleCoverControls.start({
         opacity: 0,
+        transition: {
+          delay: 0.2,
+        },
       });
       detailsControls.start({
         opacity: 1,
         x: 0,
-        transition: { duration: 0.8, ease: "backInOut", delay: 0.6 },
+        transition: { duration: 0.8, ease: "backInOut", delay: 0.8 },
       });
       smallLineControls.start({
         scaleX: 1,
         transition: {
           duration: 0.8,
           ease: "backOut",
-          delay: 0.4,
+          delay: 0.6,
         },
       });
       lineControls.start({
@@ -47,7 +50,7 @@ export default function ProjectCard({ project, index }) {
         transition: {
           duration: 1.7,
           ease: "easeOut",
-          delay: 0.6,
+          delay: 0.8,
           type: "spring",
         },
       });
@@ -136,7 +139,7 @@ const ProjectCardStyled = styled(motion.article)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
+  margin-bottom: 3vh;
   @media screen and (min-width: ${breakpoints.m}) {
     flex-direction: ${({ $even }) => ($even ? "row" : "row-reverse")};
     gap: 1rem;
