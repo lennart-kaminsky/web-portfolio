@@ -178,7 +178,6 @@ const ProjectDetailsStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  font-size: var(--fontSizeXS);
   h2 {
     display: none;
     font-size: var(--fontSizeM);
@@ -217,12 +216,11 @@ const ProjectDetailsStyled = styled(motion.div)`
 `;
 
 const ProjectHeadline = styled.h3`
-  font-size: var(--fontSizeXS);
+  font-size: var(--fontSizeS);
   font-family: var(--fontBold);
   letter-spacing: 0.1rem;
   @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: var(--fontSizeM);
-    font-size: var(--fontSizeS);
   }
 `;
 
