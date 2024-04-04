@@ -178,6 +178,7 @@ const ProjectDetailsStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  font-size: var(--fontSizeXS);
   h2 {
     display: none;
     font-size: var(--fontSizeM);
@@ -196,41 +197,45 @@ const ProjectDetailsStyled = styled(motion.div)`
     display: inline-block;
     max-width: auto;
   }
-  p {
-    display: none;
-  }
   @media screen and (min-width: ${breakpoints.m}) {
-    width: 35%;
+    width: 40%;
     h2 {
       display: block;
     }
+    ul {
+      display: none;
+    }
+  }
+  @media screen and (min-width: ${breakpoints.l}) {
+    ul {
+      display: flex;
+    }
   }
   @media screen and (min-width: ${breakpoints.xl}) {
-    p {
-      display: block;
-    }
+    font-size: var(--fontSizeS);
   }
 `;
 
 const ProjectHeadline = styled.h3`
-  display: none;
-  font-size: var(--fontSizeS);
+  font-size: var(--fontSizeXS);
   font-family: var(--fontBold);
   letter-spacing: 0.1rem;
   @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: var(--fontSizeM);
+    font-size: var(--fontSizeS);
   }
 `;
 
 const ProjectAboutHeadline = styled(ProjectHeadline)`
-  @media screen and (min-width: ${breakpoints.xl}) {
-    display: block;
-  }
+  display: block;
 `;
 
 const ProjectToolsHeadline = styled(ProjectHeadline)`
-  display: block;
   @media screen and (min-width: ${breakpoints.m}) {
+    display: none;
+  }
+  @media screen and (min-width: ${breakpoints.l}) {
+    display: block;
   }
 `;
 
