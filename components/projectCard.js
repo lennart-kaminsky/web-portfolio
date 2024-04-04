@@ -75,7 +75,7 @@ export default function ProjectCard({ project, index }) {
     }
   }, [theme]);
 
-  console.log(cardSize.width, cardSize.height);
+  // console.log(cardSize.width, cardSize.height);
 
   return (
     <ProjectCardStyled $even={even}>
