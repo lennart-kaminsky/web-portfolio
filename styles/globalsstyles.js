@@ -30,9 +30,9 @@ export const lightTheme = {
 
 export const darkTheme = {
   title: "darkTheme",
-  bgColorPrimary: "#171A1C",
-  fontColorPrimary: "#F2EBD8",
-  accentColorPrimary: "#E12106",
+  bgColorPrimary: "#0D1621",
+  fontColorPrimary: "#FAFAFA",
+  accentColorPrimary: "#CA7D21",
 };
 
 export default createGlobalStyle`

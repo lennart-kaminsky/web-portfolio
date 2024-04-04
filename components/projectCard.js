@@ -151,7 +151,7 @@ const ProjectTitle = styled.h2`
   font-size: var(--fontSizeM);
   font-family: var(--fontHeadline);
   letter-spacing: 0.1rem;
-  color: ${({ theme }) => theme.fontColorPrimary};
+  color: ${({ theme }) => theme.accentColorPrimary};
   text-transform: uppercase;
   span {
     transform-origin: right;
@@ -183,7 +183,7 @@ const ProjectDetailsStyled = styled(motion.div)`
     font-size: var(--fontSizeM);
     font-family: var(--fontHeadline);
     letter-spacing: 0.1rem;
-    color: ${({ theme }) => theme.fontColorPrimary};
+    color: ${({ theme }) => theme.accentColorPrimary};
     text-transform: uppercase;
   }
   ul {
@@ -217,7 +217,6 @@ const ProjectHeadline = styled.h3`
   font-size: var(--fontSizeS);
   font-family: var(--fontBold);
   letter-spacing: 0.1rem;
-  margin-top: var(--fontSizeS);
   @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: var(--fontSizeM);
   }
