@@ -1,41 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import { motion, useInView, useAnimationControls } from "framer-motion";
 import { breakpoints, buttonAnimations } from "@/styles/stylesConfig";
 
 export default function ProjectCard({ project, index }) {
-  const [cardSize, setCardHeight] = useState({ width: 0, height: 0 });
   const imageRef = useRef(null);
-  const cardCoverRef = useRef(null);
-  const cardHeadlineRef = useRef(null);
 
   const imageIsInView = useInView(imageRef, {
     amount: 1,
     once: true,
   });
 
-  const theme = useTheme();
-
   const coverControls = useAnimationControls();
   const titleCoverControls = useAnimationControls();
-  const titleControls = useAnimationControls();
   const detailsControls = useAnimationControls();
   const smallLineControls = useAnimationControls();
   const lineControls = useAnimationControls();
 
   const even = index % 2 === 0;
-
-  useEffect(() => {
-    if (cardCoverRef.current) {
-      setCardHeight({
-        width: cardCoverRef.current.offsetWidth,
-        height: cardCoverRef.current.offsetHeight,
-      });
-    } else {
-      setCardHeight({ width: 0, height: 0 });
-    }
-  }, [cardCoverRef.current]);
 
   useEffect(() => {
     if (imageIsInView) {
@@ -45,12 +28,6 @@ export default function ProjectCard({ project, index }) {
       });
       titleCoverControls.start({
         opacity: 0,
-      });
-      titleControls.start({
-        opacity: 1,
-        transition: {
-          delay: 1.1,
-        },
       });
       detailsControls.start({
         opacity: 1,
@@ -77,14 +54,6 @@ export default function ProjectCard({ project, index }) {
     }
   }, [imageIsInView]);
 
-  useEffect(() => {
-    if (cardSize.height > 0) {
-      titleCoverControls.set({
-        color: theme.fontColorPrimary,
-      });
-    }
-  }, [theme]);
-
   return (
     <ProjectCardStyled
       $even={even}
@@ -92,7 +61,7 @@ export default function ProjectCard({ project, index }) {
       whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <ProjectTitle ref={cardHeadlineRef}>
+      <ProjectTitle>
         <motion.span
           initial={{ opacity: 0, x: -100 }}
           animate={detailsControls}
@@ -110,8 +79,8 @@ export default function ProjectCard({ project, index }) {
           alt={project.title}
         />
         <ProjectCoverStyled
-          ref={cardCoverRef}
-          $even={index % 2 === 0}
+          aria-hidden="true"
+          $even={even}
           initial={{ scaleY: 1 }}
           animate={coverControls}
         >
@@ -121,7 +90,6 @@ export default function ProjectCard({ project, index }) {
         </ProjectCoverStyled>
       </ImageWrapperStyled>
       <ProjectDetailsStyled
-        aria-hidden="true"
         $even={even}
         initial={{ opacity: 0, x: -100 }}
         animate={detailsControls}
@@ -132,10 +100,10 @@ export default function ProjectCard({ project, index }) {
         <ProjectToolsHeadline>Technologies & Tools</ProjectToolsHeadline>
         <ul>
           {project.tools.map((tool, index) => (
-            <>
-              <li key={tool}>{tool}</li>
+            <Fragment key={tool}>
+              <li>{tool}</li>
               {index < project.tools.length - 1 && <li>&#8226;</li>}
-            </>
+            </Fragment>
           ))}
         </ul>
         <ProjectLinksContainerStyled $even={even}>
@@ -172,7 +140,6 @@ const ProjectCardStyled = styled(motion.article)`
   @media screen and (min-width: ${breakpoints.m}) {
     padding-inline: 3%;
     flex-direction: ${({ $even }) => ($even ? "row" : "row-reverse")};
-    /* justify-content: space-between; */
     gap: 1rem;
     align-items: flex-end;
   }
@@ -189,7 +156,6 @@ const ProjectTitle = styled.h2`
   span {
     transform-origin: right;
   }
-
   @media screen and (min-width: ${breakpoints.m}) {
     display: none;
   }
@@ -212,7 +178,6 @@ const ProjectDetailsStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-
   h2 {
     display: none;
     font-size: var(--fontSizeM);
@@ -221,17 +186,15 @@ const ProjectDetailsStyled = styled(motion.div)`
     color: ${({ theme }) => theme.fontColorPrimary};
     text-transform: uppercase;
   }
-
   ul {
     display: flex;
     flex-wrap: wrap;
     column-gap: 0.5rem;
-
-    li {
-      list-style: none;
-      display: inline-block;
-      max-width: auto;
-    }
+  }
+  li {
+    list-style: none;
+    display: inline-block;
+    max-width: auto;
   }
   p {
     display: none;
@@ -293,7 +256,6 @@ const ProjectLinksContainerStyled = styled(motion.div)`
     color: ${({ theme }) => theme.bgColorPrimary};
     padding: 0.5rem;
     border-radius: 100%;
-
     @media (hover: hover) {
       &:hover {
         background-color: ${({ theme }) => theme.fontColorPrimary};
@@ -320,7 +282,6 @@ const ProjectCoverStyled = styled(motion.div)`
   background-color: ${({ theme, $even }) =>
     $even ? theme.accentColorPrimary : theme.fontColorPrimary};
   transform-origin: top;
-
   h2 {
     position: absolute;
     font-size: var(--fontSizeM);

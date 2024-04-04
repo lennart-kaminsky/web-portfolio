@@ -12,7 +12,8 @@ export const fontSizes = {
   m: "1.5rem",
   l: "2rem",
   xl: "3.8rem",
-  xxl: "5rem",
+  xxl: "6rem",
+  xxxl: "7",
 };
 
 //Animations

@@ -74,7 +74,7 @@ main {
 
 section {
   padding: 3%;
-  margin-bottom: 10vh;
+  margin-bottom: 15vh;
 }
 
 svg {
