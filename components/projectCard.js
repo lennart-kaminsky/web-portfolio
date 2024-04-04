@@ -138,7 +138,6 @@ const ProjectCardStyled = styled(motion.article)`
   gap: 0.5rem;
 
   @media screen and (min-width: ${breakpoints.m}) {
-    padding-inline: 3%;
     flex-direction: ${({ $even }) => ($even ? "row" : "row-reverse")};
     gap: 1rem;
     align-items: flex-end;

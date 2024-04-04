@@ -28,3 +28,13 @@ export const buttonAnimations = {
     scale: 0.9,
   },
 };
+
+export const headlineAnimations = {
+  initial: {
+    opacity: 0,
+  },
+  whileInView: {
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+};

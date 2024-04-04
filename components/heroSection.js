@@ -9,6 +9,7 @@ import {
 } from "@/styles/stylesConfig";
 import Icon from "@/components/icons";
 import { ButtonDarkMode } from "@/components/buttons";
+import { HeadlineStyled } from "@/styles/styled";
 
 const links = [
   {
@@ -132,12 +133,12 @@ export default function HeroSection() {
         <HeroTextStyled>
           <span ref={hejRef}>Hej and welcome! I{"'"}m</span>
         </HeroTextStyled>
-        <HeadlineStyled>
+        <HeroHeadlineStyled>
           <span>
             <span ref={nameRef}>LENNART</span>
           </span>
           <span>KAMINSKY</span>
-        </HeadlineStyled>
+        </HeroHeadlineStyled>
         <HeroTextStyled>Junior Frontend Developer from Germany.</HeroTextStyled>
         <ScrollDownIconStyled
           variant="arrowDown"
@@ -166,17 +167,12 @@ const HeroSectionStyled = styled.section`
   grid-template-columns: 1fr;
   grid-template-rows: 1fr minmax(50px, 200px) auto;
   align-items: end;
-  @media screen and (min-width: ${breakpoints.s}) {
-    padding-bottom: 3%;
-  }
   @media screen and (orientation: landscape) {
     height: auto;
     min-height: 100vh;
     grid-template-rows: 1fr auto;
     grid-template-columns: 1fr 1fr;
-  }
-  @media screen and (orientation: landscape) and (min-width: ${breakpoints.xl}) {
-    padding-inline: 8%;
+    padding-bottom: 3%;
   }
 `;
 
@@ -222,11 +218,7 @@ const PhotoStyled = styled(Image)`
   }
 `;
 
-const HeadlineStyled = styled.h1`
-  font-family: var(--fontHeadline);
-  font-size: var(--fontSizeXL);
-  line-height: 3.4rem;
-  letter-spacing: 0.1rem;
+const HeroHeadlineStyled = styled(HeadlineStyled)`
   color: ${({ theme }) => theme.accentColorPrimary};
   display: flex;
   flex-direction: column;

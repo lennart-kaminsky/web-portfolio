@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { Poppins, Rubik } from "next/font/google";
+import { breakpoints } from "@/styles/stylesConfig";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -73,7 +74,10 @@ main {
 
 section {
   padding: 3%;
-  margin-bottom: 15vh;
+  margin-bottom: 10vh;
+  @media screen and (orientation: landscape) and (min-width: 1400px) {
+    padding-inline: 6%;
+  }
 }
 
 svg {
