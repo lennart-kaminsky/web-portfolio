@@ -18,8 +18,10 @@ export default function ProjectCard({ project, index }) {
   const theme = useTheme();
 
   const coverControls = useAnimationControls();
+  const titleCoverControls = useAnimationControls();
   const titleControls = useAnimationControls();
   const detailsControls = useAnimationControls();
+  const smallLineControls = useAnimationControls();
   const lineControls = useAnimationControls();
 
   const even = index % 2 === 0;
@@ -41,19 +43,27 @@ export default function ProjectCard({ project, index }) {
         scaleY: 0,
         transition: { duration: 0.8, ease: "easeInOut" },
       });
-      if (cardSize.height > 0 && cardHeadlineRef.current)
-        titleControls.start({
-          y: -cardSize.height / 2 - cardHeadlineRef.current.offsetHeight / 2,
-          color: theme.fontColorPrimary,
-          transition: {
-            duration: 0.8,
-            ease: "easeInOut",
-          },
-        });
+      titleCoverControls.start({
+        opacity: 0,
+      });
+      titleControls.start({
+        opacity: 1,
+        transition: {
+          delay: 1.1,
+        },
+      });
       detailsControls.start({
         opacity: 1,
         x: 0,
         transition: { duration: 0.8, ease: "backInOut", delay: 0.6 },
+      });
+      smallLineControls.start({
+        scaleX: 1,
+        transition: {
+          duration: 0.8,
+          ease: "backOut",
+          delay: 0.4,
+        },
       });
       lineControls.start({
         scale: 1,
@@ -69,7 +79,7 @@ export default function ProjectCard({ project, index }) {
 
   useEffect(() => {
     if (cardSize.height > 0) {
-      titleControls.set({
+      titleCoverControls.set({
         color: theme.fontColorPrimary,
       });
     }
@@ -82,52 +92,50 @@ export default function ProjectCard({ project, index }) {
       whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
       viewport={{ once: true, amount: 0.3 }}
     >
-      <HeadlineImageContainer>
-        <motion.h2
-          ref={cardHeadlineRef}
-          initial={{ y: 0 }}
-          animate={titleControls}
+      <ProjectTitle ref={cardHeadlineRef}>
+        <motion.span
+          initial={{ opacity: 0, x: -100 }}
+          animate={detailsControls}
         >
-          <span>
-            {cardSize.width > 0 && cardHeadlineRef.current && (
-              <SmallLineStyled
-                $width={
-                  (cardSize.width - cardHeadlineRef.current.offsetWidth) / 2
-                }
-                initial={{ x: "calc(-100% - 5px)", scale: 0 }}
-                animate={lineControls}
-              />
-            )}
-          </span>
           {project.title}
-        </motion.h2>
-        <ImageWrapperStyled>
-          <ProjectImageStyled
-            ref={imageRef}
-            src={project.image.url}
-            width={project.image.width}
-            height={project.image.height}
-            alt={project.title}
-          />
-          <ProjectCoverStyled
-            ref={cardCoverRef}
-            $even={index % 2 === 0}
-            initial={{ scaleY: 1 }}
-            animate={coverControls}
-          />
-        </ImageWrapperStyled>
-      </HeadlineImageContainer>
+        </motion.span>
+        <SmallLineStyled initial={{ scaleX: 0 }} animate={smallLineControls} />
+      </ProjectTitle>
+      <ImageWrapperStyled>
+        <ProjectImageStyled
+          ref={imageRef}
+          src={project.image.url}
+          width={project.image.width}
+          height={project.image.height}
+          alt={project.title}
+        />
+        <ProjectCoverStyled
+          ref={cardCoverRef}
+          $even={index % 2 === 0}
+          initial={{ scaleY: 1 }}
+          animate={coverControls}
+        >
+          <motion.h2 initial={{ opacity: 1 }} animate={titleCoverControls}>
+            {project.title}
+          </motion.h2>
+        </ProjectCoverStyled>
+      </ImageWrapperStyled>
       <ProjectDetailsStyled
+        aria-hidden="true"
         $even={even}
         initial={{ opacity: 0, x: -100 }}
         animate={detailsControls}
       >
+        <h2>{project.title}</h2>
         <ProjectAboutHeadline>About</ProjectAboutHeadline>
         <p>{project.description}</p>
         <ProjectToolsHeadline>Technologies & Tools</ProjectToolsHeadline>
         <ul>
-          {project.tools.map((tool) => (
-            <li key={tool}>{tool}</li>
+          {project.tools.map((tool, index) => (
+            <>
+              <li key={tool}>{tool}</li>
+              {index < project.tools.length - 1 && <li>&#8226;</li>}
+            </>
           ))}
         </ul>
         <ProjectLinksContainerStyled $even={even}>
@@ -162,39 +170,36 @@ const ProjectCardStyled = styled(motion.article)`
   gap: 0.5rem;
 
   @media screen and (min-width: ${breakpoints.m}) {
-    grid-column: ${({ $even }) => ($even ? "1 / span 2" : "2 / span 2")};
     padding-inline: 3%;
     flex-direction: ${({ $even }) => ($even ? "row" : "row-reverse")};
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap: 1rem;
     align-items: flex-end;
   }
 `;
 
-const HeadlineImageContainer = styled.div`
+const ProjectTitle = styled.h2`
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
-
-  h2 {
-    position: absolute;
-    font-size: var(--fontSizeM);
-    font-family: var(--fontHeadline);
-    letter-spacing: 0.1rem;
-    color: ${({ theme }) => theme.bgColorPrimary};
-    text-transform: uppercase;
-    padding-bottom: 0.5rem;
-    z-index: 1;
+  font-size: var(--fontSizeM);
+  font-family: var(--fontHeadline);
+  letter-spacing: 0.1rem;
+  color: ${({ theme }) => theme.fontColorPrimary};
+  text-transform: uppercase;
+  span {
+    transform-origin: right;
   }
 
   @media screen and (min-width: ${breakpoints.m}) {
-    width: 60%;
+    display: none;
   }
 `;
 
 const ImageWrapperStyled = styled.div`
   position: relative;
+  @media screen and (min-width: ${breakpoints.m}) {
+    width: 60%;
+  }
 `;
 
 const ProjectImageStyled = styled(Image)`
@@ -203,20 +208,39 @@ const ProjectImageStyled = styled(Image)`
 `;
 
 const ProjectDetailsStyled = styled(motion.div)`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  h2 {
+    display: none;
+    font-size: var(--fontSizeM);
+    font-family: var(--fontHeadline);
+    letter-spacing: 0.1rem;
+    color: ${({ theme }) => theme.fontColorPrimary};
+    text-transform: uppercase;
+  }
+
   ul {
-    list-style: none;
     display: flex;
     flex-wrap: wrap;
-    column-gap: 1rem;
+    column-gap: 0.5rem;
+
+    li {
+      list-style: none;
+      display: inline-block;
+      max-width: auto;
+    }
   }
   p {
     display: none;
   }
   @media screen and (min-width: ${breakpoints.m}) {
     width: 35%;
+    h2 {
+      display: block;
+    }
   }
   @media screen and (min-width: ${breakpoints.xl}) {
     p {
@@ -230,7 +254,8 @@ const ProjectHeadline = styled.h3`
   font-size: var(--fontSizeS);
   font-family: var(--fontBold);
   letter-spacing: 0.1rem;
-  @media screen and (min-width: ${breakpoints.m}) {
+  margin-top: var(--fontSizeS);
+  @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: var(--fontSizeM);
   }
 `;
@@ -277,6 +302,8 @@ const ProjectLinksContainerStyled = styled(motion.div)`
   }
   @media screen and (min-width: ${breakpoints.m}) {
     justify-content: ${({ $even }) => ($even ? "flex-end" : "flex-start")};
+  }
+  @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: 1rem;
   }
 `;
@@ -287,15 +314,26 @@ const ProjectCoverStyled = styled(motion.div)`
   left: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${({ theme, $even }) =>
     $even ? theme.accentColorPrimary : theme.fontColorPrimary};
   transform-origin: top;
+
+  h2 {
+    position: absolute;
+    font-size: var(--fontSizeM);
+    font-family: var(--fontHeadline);
+    letter-spacing: 0.1rem;
+    color: ${({ theme }) => theme.bgColorPrimary};
+    text-transform: uppercase;
+  }
 `;
 
 const SmallLineStyled = styled(motion.div)`
-  position: absolute;
   height: 0.3rem;
-  width: ${({ $width }) => `${$width - 5}px`};
+  flex-grow: 1;
   background-color: ${({ theme }) => theme.accentColorPrimary};
   margin-top: calc(var(--fontSizeXXS) + 0.1rem);
   transform-origin: right;
