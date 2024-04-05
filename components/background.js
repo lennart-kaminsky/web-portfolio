@@ -23,26 +23,7 @@ export default function Background() {
       setCirclePosition({ line: rounded, bounce: getBounceValue(rounded) });
   });
 
-  return (
-    <BackgroundStyled $circlePosition={circlePosition}>
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <filter id="noiseFilter">
-          <feTurbulence
-            type="fractalNoise"
-            baseFrequency="5"
-            numOctaves="6"
-            stitchTiles="stitch"
-          />
-        </filter>
-        <rect
-          width="100%"
-          height="100%"
-          filter="url(#noiseFilter)"
-          opacity="0.1"
-        />
-      </svg>
-    </BackgroundStyled>
-  );
+  return <BackgroundStyled $circlePosition={circlePosition} />;
 }
 
 const BackgroundStyled = styled.div`
@@ -61,11 +42,6 @@ const BackgroundStyled = styled.div`
       } 10%, transparent 30%)`},
     ${({ theme }) => theme.bgColorPrimary};
 
-  svg {
-    height: 100vh;
-    width: auto;
-  }
-
   @media screen and (orientation: landscape) {
     background: ${({ theme, $circlePosition }) =>
         `radial-gradient(circle at ${$circlePosition.line}% ${$circlePosition.bounce}%, ${theme.bgColorSecondary} 10%, transparent 30%)`},
@@ -74,10 +50,5 @@ const BackgroundStyled = styled.div`
           theme.accentColorPrimary
         } 10%, transparent 40%)`},
       ${({ theme }) => theme.bgColorPrimary};
-
-    svg {
-      height: auto;
-      width: 100vw;
-    }
   }
 `;
