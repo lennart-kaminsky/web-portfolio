@@ -160,7 +160,9 @@ export default function HeroSection() {
 const HeroSectionStyled = styled.section`
   //for weird auto scroll on chrome mobile on page load
   overflow-anchor: none;
-  padding-bottom: 13%;
+  padding-block: 3% 13%;
+
+  margin-bottom: 10vh;
 
   height: 93vh;
   display: grid;

@@ -221,6 +221,7 @@ const ProjectHeadline = styled.h3`
   font-size: var(--fontSizeS);
   font-family: var(--fontBold);
   letter-spacing: 0.1rem;
+  margin-top: var(--fontSizeS);
   @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: var(--fontSizeM);
   }
@@ -242,6 +243,7 @@ const ProjectToolsHeadline = styled(ProjectHeadline)`
 const ProjectLinksContainerStyled = styled(motion.div)`
   display: flex;
   gap: 1rem;
+  margin-top: var(--fontSizeS);
   a {
     width: 1.7rem;
     height: 1.7rem;

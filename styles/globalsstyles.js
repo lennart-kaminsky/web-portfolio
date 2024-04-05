@@ -24,13 +24,18 @@ const rubikBold = Rubik({
 export const lightTheme = {
   title: "lightTheme",
   bgColorPrimary: "#F2EBD8",
+  bgColorSecondary: "#DFD8F2",
   fontColorPrimary: "#0A0809",
   accentColorPrimary: "#E12106",
 };
 
 export const darkTheme = {
   title: "darkTheme",
-  bgColorPrimary: "#0D1621",
+  bgColorPrimary: "#11161D",
+  // bgColorPrimary: "#0D1621",
+  bgColorSecondary: "#2A4030",
+  // bgColorSecondary: "#1F3525",
+  // bgColorSecondary: "#0D2112",
   fontColorPrimary: "#FAFAFA",
   accentColorPrimary: "#CA7D21",
 };
@@ -74,8 +79,9 @@ main {
 
 section {
   padding: 3%;
-  margin-bottom: 10vh;
+  padding-block: 5vh 7vh;
   @media screen and (orientation: landscape) and (min-width: 1400px) {
+    padding-block: 7vh 9vh;
     padding-inline: 6%;
   }
 }
