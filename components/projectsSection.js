@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import projects from "@/lib/data";
-import ProjectCard from "@/components/projectCard";
 import { HeadlineStyled } from "@/styles/styled";
 import { breakpoints, headlineAnimations } from "@/styles/stylesConfig";
+import projects from "@/lib/data";
+import ProjectCard from "@/components/projectCard";
 
 export default function ProjectsSection() {
   return (
@@ -26,7 +26,6 @@ const ProjectsSectionStyled = styled.section`
   display: flex;
   flex-direction: column;
   gap: 5vh;
-  background-color: ${({ theme }) => theme.bgColorSecondary};
   @media screen and (min-width: ${breakpoints.m}) {
     gap: 10vh;
   }

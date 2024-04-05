@@ -24,7 +24,7 @@ const rubikBold = Rubik({
 export const lightTheme = {
   title: "lightTheme",
   bgColorPrimary: "#F2EBD8",
-  bgColorSecondary: "#DFD8F2",
+  bgColorSecondary: "#BCB3E0",
   fontColorPrimary: "#0A0809",
   accentColorPrimary: "#E12106",
 };
@@ -32,10 +32,7 @@ export const lightTheme = {
 export const darkTheme = {
   title: "darkTheme",
   bgColorPrimary: "#11161D",
-  // bgColorPrimary: "#0D1621",
   bgColorSecondary: "#2A4030",
-  // bgColorSecondary: "#1F3525",
-  // bgColorSecondary: "#0D2112",
   fontColorPrimary: "#FAFAFA",
   accentColorPrimary: "#CA7D21",
 };
@@ -68,7 +65,6 @@ export default createGlobalStyle`
 
 body {
     font-family: var(--fontRegular);
-    background-color: ${({ theme }) => theme.bgColorPrimary};
     color: ${({ theme }) => theme.fontColorPrimary};
     transition: background-color 2s, color 2s;
 }
