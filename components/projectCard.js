@@ -286,7 +286,7 @@ const ProjectCoverStyled = styled(motion.div)`
   justify-content: center;
   align-items: center;
   background-color: ${({ theme, $even }) =>
-    $even ? theme.accentColorPrimary : theme.fontColorPrimary};
+    $even ? theme.accentColorPrimary : theme.bgColorSecondary};
   transform-origin: top;
   h2 {
     position: absolute;
