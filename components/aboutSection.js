@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import { HeadlineStyled } from "@/styles/styled";
 import { breakpoints, headlineAnimations } from "@/styles/stylesConfig";
-import { aboutParagraphs, techStack } from "@/lib/data";
+import { aboutParagraphs } from "@/lib/data";
 
 export default function AboutSection() {
   return (
@@ -31,18 +31,6 @@ export default function AboutSection() {
           ))}
         </AboutTextContainer>
       </HeadlineTextContainer>
-      {/* <TechStackContainer>
-        <h2>My Tech Stack</h2>
-        <ul>
-          {techStack.map((stack, index) => (
-            <li key={index}>
-              <a href={stack.href} alt={stack.name}>
-                {stack.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </TechStackContainer> */}
     </AboutSectionStyled>
   );
 }
@@ -51,11 +39,6 @@ const AboutSectionStyled = styled.section`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
-  /* padding-top: 0;
-  @media screen and (min-width: ${breakpoints.s}) {
-    padding-top: 3%;
-  } */
   @media screen and (min-width: ${breakpoints.xl}) {
     flex-direction: row;
   }
@@ -79,14 +62,11 @@ const HeadlineTextContainer = styled.div`
 `;
 
 const ImageStyled = styled(Image)`
-  /* width: 106%; */
   width: 100%;
   height: auto;
   object-fit: cover;
-  /* margin-left: -3%; */
   @media screen and (min-width: ${breakpoints.s}) {
     width: 70%;
-    /* margin-left: 0; */
     align-self: flex-end;
   }
   @media screen and (min-width: ${breakpoints.xl}) {
