@@ -23,7 +23,6 @@ export default function Background() {
       setCirclePosition({ line: rounded, bounce: getBounceValue(rounded) });
   });
 
-  console.log(circlePosition.line, circlePosition.bounce);
   return (
     <BackgroundStyled $circlePosition={circlePosition}>
       <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
