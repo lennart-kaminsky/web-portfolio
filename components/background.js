@@ -10,7 +10,7 @@ export default function Background() {
   const circleMotionValue = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   useMotionValueEvent(circleMotionValue, "change", (latest) => {
-    const rounded = Math.round(latest * 100) / 100;
+    const rounded = Math.round(latest);
 
     function getBounceValue(value) {
       if (value < 50) {
@@ -19,9 +19,11 @@ export default function Background() {
         return (100 - value) * 1;
       }
     }
-
-    setCirclePosition({ line: rounded, bounce: getBounceValue(rounded) });
+    if (rounded !== circlePosition.line)
+      setCirclePosition({ line: rounded, bounce: getBounceValue(rounded) });
   });
+
+  console.log(circlePosition.line, circlePosition.bounce);
   return <BackgroundStyled $circlePosition={circlePosition} />;
 }
 
@@ -32,6 +34,7 @@ const BackgroundStyled = styled.div`
   width: 100%;
   height: 100%;
   z-index: -1;
+  transition: background 2s;
   background: ${({ theme, $circlePosition }) =>
       `radial-gradient(circle at ${$circlePosition.bounce}% ${$circlePosition.line}%, ${theme.bgColorSecondary} 10%, transparent 50%)`},
     ${({ theme, $circlePosition }) =>
