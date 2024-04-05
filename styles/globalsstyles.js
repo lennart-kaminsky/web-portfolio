@@ -66,7 +66,7 @@ export default createGlobalStyle`
 body {
     font-family: var(--fontRegular);
     color: ${({ theme }) => theme.fontColorPrimary};
-    transition: color 2s;
+    transition: color 1s;
 }
 
 main {
