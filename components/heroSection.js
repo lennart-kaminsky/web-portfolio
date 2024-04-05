@@ -139,7 +139,7 @@ export default function HeroSection() {
           </span>
           <span>KAMINSKY</span>
         </HeroHeadlineStyled>
-        <HeroTextStyled>Junior Frontend Developer from Germany.</HeroTextStyled>
+        <HeroTextStyled>Junior Web Developer from Germany.</HeroTextStyled>
         <ScrollDownIconStyled
           variant="arrowDown"
           size={fontSizes.xl}
