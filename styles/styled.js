@@ -13,3 +13,10 @@ export const HeadlineStyled = styled(motion.h1)`
     line-height: 5rem;
   }
 `;
+
+export const SecondHeadlineStyled = styled.h2`
+  font-family: var(--fontHeadline);
+  font-size: var(--fontSizeM);
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+`;

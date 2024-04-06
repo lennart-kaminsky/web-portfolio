@@ -3,6 +3,7 @@ import Image from "next/image";
 import styled from "styled-components";
 import { motion, useInView, useAnimationControls } from "framer-motion";
 import { breakpoints, buttonAnimations } from "@/styles/stylesConfig";
+import { SecondHeadlineStyled } from "@/styles/styled";
 
 export default function ProjectCard({ project, index }) {
   const imageRef = useRef(null);
@@ -97,7 +98,7 @@ export default function ProjectCard({ project, index }) {
         initial={{ opacity: 0, x: -100 }}
         animate={detailsControls}
       >
-        <h2>{project.title}</h2>
+        <ProjectTitle>{project.title}</ProjectTitle>
         <ProjectAboutHeadline>About</ProjectAboutHeadline>
         <p>{project.description}</p>
         <ProjectToolsHeadline>Technologies & Tools</ProjectToolsHeadline>
@@ -147,14 +148,10 @@ const ProjectCardStyled = styled(motion.article)`
   }
 `;
 
-const ProjectTitle = styled.h2`
+const ProjectTitle = styled(SecondHeadlineStyled)`
   display: flex;
   gap: 0.5rem;
-  font-size: var(--fontSizeM);
-  font-family: var(--fontHeadline);
-  letter-spacing: 0.1rem;
   color: ${({ theme }) => theme.accentColorPrimary};
-  text-transform: uppercase;
   span {
     transform-origin: right;
   }
@@ -180,13 +177,9 @@ const ProjectDetailsStyled = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  h2 {
+  ${ProjectTitle} {
     display: none;
-    font-size: var(--fontSizeM);
-    font-family: var(--fontHeadline);
-    letter-spacing: 0.1rem;
     color: ${({ theme }) => theme.accentColorPrimary};
-    text-transform: uppercase;
   }
   ul {
     display: flex;
@@ -200,7 +193,7 @@ const ProjectDetailsStyled = styled(motion.div)`
   }
   @media screen and (min-width: ${breakpoints.m}) {
     width: 40%;
-    h2 {
+    ${ProjectTitle} {
       display: block;
     }
     ul {
