@@ -14,7 +14,7 @@ export const HeadlineStyled = styled(motion.h1)`
   }
 `;
 
-export const SecondHeadlineStyled = styled.h2`
+export const SecondHeadlineStyled = styled(motion.h2)`
   font-family: var(--fontHeadline);
   font-size: var(--fontSizeM);
   letter-spacing: 0.1rem;

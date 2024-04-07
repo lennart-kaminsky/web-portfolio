@@ -7,9 +7,9 @@ import {
   buttonAnimations,
   fontSizes,
 } from "@/styles/stylesConfig";
+import { HeadlineStyled } from "@/styles/styled";
 import Icon from "@/components/icons";
 import { ButtonDarkMode } from "@/components/buttons";
-import { HeadlineStyled } from "@/styles/styled";
 
 const links = [
   {

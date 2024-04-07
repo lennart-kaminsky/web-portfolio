@@ -63,7 +63,7 @@ export default function ProjectCard({ project, index }) {
       $even={even}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1, transition: { duration: 0.5 } }}
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.1 }}
     >
       <ProjectTitle>
         <motion.span

@@ -29,7 +29,7 @@ export const buttonAnimations = {
   },
 };
 
-export const headlineAnimations = {
+export const opacityAnimations = {
   initial: {
     opacity: 0,
   },

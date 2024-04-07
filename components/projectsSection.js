@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { HeadlineStyled } from "@/styles/styled";
-import { breakpoints, headlineAnimations } from "@/styles/stylesConfig";
+import { breakpoints, opacityAnimations } from "@/styles/stylesConfig";
 import projects from "@/lib/data";
 import ProjectCard from "@/components/projectCard";
 
@@ -8,7 +8,7 @@ export default function ProjectsSection() {
   return (
     <ProjectsSectionStyled>
       <HeadlineStyled
-        variants={headlineAnimations}
+        variants={opacityAnimations}
         initial="initial"
         whileInView="whileInView"
       >
