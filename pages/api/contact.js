@@ -17,6 +17,10 @@ export default async function handler(request, response) {
       user: transmitter_email,
       pass: transmitter_password,
     },
+    tls: {
+      ciphers: "SSLv3",
+      rejectUnauthorized: false,
+    },
   });
 
   try {

@@ -25,8 +25,17 @@ const ProjectsSectionStyled = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5vh;
+  gap: 4rem;
+  @media screen and (min-width: ${breakpoints.s}) {
+    gap: 6rem;
+  }
   @media screen and (min-width: ${breakpoints.m}) {
-    gap: 10vh;
+    gap: 8rem;
+  }
+  @media screen and (min-width: ${breakpoints.l}) {
+    gap: 10rem;
+  }
+  @media screen and (min-width: ${breakpoints.xl}) {
+    gap: 12rem;
   }
 `;

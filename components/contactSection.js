@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { motion, useAnimationControls } from "framer-motion";
 import { HeadlineStyled } from "@/styles/styled";
@@ -6,10 +6,11 @@ import {
   breakpoints,
   buttonAnimations,
   fontSizes,
+  inputAnimations,
+  opacityAnimations,
 } from "@/styles/stylesConfig";
 import Icon from "./icons";
 import { links } from "@/lib/data";
-import { Noto_Sans_Egyptian_Hieroglyphs } from "next/font/google";
 
 export default function ContactSection() {
   const [messageSent, setMessageSent] = useState(false);
@@ -19,18 +20,12 @@ export default function ContactSection() {
   const theme = useTheme();
   const formControls = useAnimationControls();
 
-  useEffect(() => {
-    console.log("messageSent", messageSent);
-    console.log("sending", sending);
-    console.log("error", error);
-  }, [messageSent, sending, error]);
-
   async function handleSubmit(event) {
     event.preventDefault();
     setSending(true);
 
     formControls.start({
-      scale: 0.2,
+      scale: 0.4,
       y: -200,
       opacity: 0,
       transition: {
@@ -80,13 +75,32 @@ export default function ContactSection() {
   return (
     <ContactSectionStyled>
       <ContactText>
-        <HeadlineStyled>Say hej</HeadlineStyled>
+        <HeadlineStyled
+          variants={opacityAnimations}
+          initial="initial"
+          whileInView="whileInView"
+        >
+          Say hej
+        </HeadlineStyled>
 
-        <p>
+        <motion.p
+          variants={opacityAnimations}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 1, once: true }}
+        >
           If you have any questions, want to get in touch with me or just want
-          to chat about mountain biking, feel free to use the contact form.
-        </p>
-        <p>Alternatively you can write me on LinkedIn or just send a mail to</p>
+          to chat about web development or mountain biking, feel free to use the
+          contact form.
+        </motion.p>
+        <motion.p
+          variants={opacityAnimations}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ amount: 1, once: true }}
+        >
+          Alternatively you can write me on LinkedIn or just send a mail to
+        </motion.p>
         <EmailLink
           href="mailto:hej@lennartkaminsky.dev"
           variants={buttonAnimations}
@@ -124,13 +138,13 @@ export default function ContactSection() {
                 y: 0,
                 opacity: 1,
                 transition: {
-                  y: { duration: 0.4, ease: "backInOut" },
-                  opacity: { duration: 0.1 },
+                  y: { delay: 1, duration: 0.4, ease: "backInOut" },
+                  opacity: { delay: 1, duration: 0.1 },
                 },
               }}
             >
               <p>Thank you for your message!</p>
-              <p> I will reach out to you soon. ✌🏻</p>
+              <p> I will reach out to you as soon as possible. ✌🏻</p>
             </motion.div>
           )
         ) : (
@@ -138,35 +152,55 @@ export default function ContactSection() {
             {error && <p>This did{"'"}t work. Please try again.</p>}
             <label htmlFor="name">
               Your name
-              <input
+              <motion.input
                 id="name"
                 name="name"
                 type="text"
                 maxLength="50"
                 autoComplete="name"
                 required
+                variants={inputAnimations}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ amount: 1, once: true }}
               />
             </label>
             <label htmlFor="email">
               Your email
-              <input
+              <motion.input
                 id="email"
                 name="email"
                 type="email"
                 maxLength="60"
                 autoComplete="email"
                 required
+                variants={inputAnimations}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ amount: 1, once: true }}
               />
             </label>
             <label htmlFor="message">
               What do you want to tell me?
-              <textarea id="message" name="message" rows="4" />
+              <motion.textarea
+                id="message"
+                name="message"
+                rows="4"
+                variants={inputAnimations}
+                initial="initial"
+                whileInView="whileInView"
+                viewport={{ amount: 1, once: true }}
+              />
             </label>
             <motion.button
               type="submit"
               variants={buttonAnimations}
               whileHover="hover"
               whileTap="tap"
+              whileInView={{
+                scale: [1, 1.1, 1],
+                transition: { delay: 1, duration: 0.8, repeat: 1 },
+              }}
             >
               Send it!
             </motion.button>
@@ -178,7 +212,6 @@ export default function ContactSection() {
 }
 
 const ContactSectionStyled = styled.section`
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -269,15 +302,16 @@ const ContactForm = styled(motion.form)`
   input,
   textarea {
     all: unset;
-    border-bottom: ${({ theme }) => `2px solid ${theme.accentColorPrimary}`};
+    border-bottom: ${({ theme }) => `0.3rem solid ${theme.accentColorPrimary}`};
     padding: 0.5rem;
+    transform-origin: left;
   }
 
   button {
     align-self: flex-start;
     background: none;
     color: ${({ theme }) => theme.accentColorPrimary};
-    border: ${({ theme }) => `2px solid ${theme.accentColorPrimary}`};
+    border: ${({ theme }) => `0.15rem solid ${theme.accentColorPrimary}`};
     border-radius: 1rem;
     padding: 0.5rem 2rem;
     @media (hover: hover) {

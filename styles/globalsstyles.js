@@ -75,9 +75,18 @@ main {
 
 section {
   padding: 3%;
-  padding-block: 5vh 7vh;
-  @media screen and (orientation: landscape) and (min-width: 1400px) {
-    padding-block: 7vh 9vh;
+  padding-block: 4rem;
+  @media screen and (min-width: ${breakpoints.s}) {
+    padding-block: 5rem;
+  }
+  @media screen and (min-width: ${breakpoints.m}) {
+    padding-block: 6rem;
+  }
+  @media screen and (min-width: ${breakpoints.l}) {
+    padding-block: 8rem;
+  }
+  @media screen and (min-width: ${breakpoints.xl}) {
+    padding-block: 9rem;
     padding-inline: 6%;
   }
 }

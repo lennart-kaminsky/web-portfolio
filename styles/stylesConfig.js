@@ -38,3 +38,12 @@ export const opacityAnimations = {
     transition: { duration: 0.5 },
   },
 };
+
+export const inputAnimations = {
+  initial: { scaleX: 0 },
+  whileInView: {
+    scaleX: 1,
+    transition: { duration: 0.8, ease: "easeInOut", delay: 0.1 },
+  },
+  viewport: { amount: 1, once: true },
+};

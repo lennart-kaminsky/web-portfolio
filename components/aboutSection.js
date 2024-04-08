@@ -103,8 +103,11 @@ export default function AboutSection() {
 
 const AboutSectionStyled = styled.section`
   display: grid;
-  gap: 2rem;
+  gap: 4rem 2rem;
 
+  @media screen and (min-width: ${breakpoints.l}) {
+    row-gap: 6rem;
+  }
   @media screen and (min-width: ${breakpoints.xl}) {
     grid-template-columns: 2fr 1fr;
   }
@@ -112,12 +115,12 @@ const AboutSectionStyled = styled.section`
 
 const AboutMeHeadline = styled(HeadlineStyled)`
   color: ${({ theme }) => theme.accentColorPrimary};
-  margin-top: -4rem;
+  margin-top: -6rem;
   @media screen and (min-width: ${breakpoints.s}) {
-    margin-top: -6rem;
+    margin-top: -8rem;
   }
   @media screen and (min-width: ${breakpoints.l}) {
-    margin-top: -8rem;
+    margin-top: -12rem;
   }
   @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: 0;
@@ -146,9 +149,14 @@ const AboutTextContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   max-width: ${breakpoints.s};
-  margin-top: -1rem;
+  margin-top: -5rem;
   @media screen and (min-width: ${breakpoints.s}) {
-    margin-top: -2rem;
+    gap: 2rem;
+    margin-top: -6rem;
+  }
+  @media screen and (min-width: ${breakpoints.l}) {
+    gap: 4rem;
+    margin-top: -8rem;
   }
   @media screen and (min-width: ${breakpoints.xl}) {
     margin-top: 0;
@@ -216,6 +224,7 @@ const TechStackContainer = styled.div`
     fill: ${({ theme }) => theme.accentColorPrimary};
   }
   @media screen and (min-width: ${breakpoints.s}) {
+    gap: 4rem;
     li {
       width: 8rem;
     }
@@ -225,7 +234,7 @@ const TechStackContainer = styled.div`
     }
   }
   @media screen and (min-width: ${breakpoints.m}) {
-    gap: 3rem;
+    gap: 6rem;
     padding-top: 2rem;
     ul {
       grid-template-columns: repeat(5, 1fr);
