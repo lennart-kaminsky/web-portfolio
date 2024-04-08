@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
+import { links } from "@/lib/data";
 import {
   breakpoints,
   buttonAnimations,
@@ -10,24 +11,6 @@ import {
 import { HeadlineStyled } from "@/styles/styled";
 import Icon from "@/components/icons";
 import { ButtonDarkMode } from "@/components/buttons";
-
-const links = [
-  {
-    name: "GitHub",
-    href: "https://github.com/lennart-kaminsky",
-    icon: "gitHub",
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/in/lennart-kaminsky/",
-    icon: "linkedIn",
-  },
-  {
-    name: "Mail",
-    href: "/",
-    icon: "mail",
-  },
-];
 
 export default function HeroSection() {
   const [startOfLine, setStartOfLine] = useState({
