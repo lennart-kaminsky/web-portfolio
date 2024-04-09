@@ -26,19 +26,25 @@ const ProjectsSectionStyled = styled.section`
   display: flex;
   flex-direction: column;
   gap: 4rem;
+  ${HeadlineStyled} {
+    margin-bottom: -2rem;
+  }
   @media screen and (min-width: ${breakpoints.s}) {
     gap: 6rem;
     ${HeadlineStyled} {
-      margin-bottom: -2rem;
+      margin-bottom: -3rem;
     }
   }
   @media screen and (min-width: ${breakpoints.m}) {
     gap: 8rem;
+    ${HeadlineStyled} {
+      margin-bottom: -4rem;
+    }
   }
   @media screen and (min-width: ${breakpoints.l}) {
     gap: 10rem;
     ${HeadlineStyled} {
-      margin-bottom: -4rem;
+      margin-bottom: -5rem;
     }
   }
   @media screen and (min-width: ${breakpoints.xl}) {
