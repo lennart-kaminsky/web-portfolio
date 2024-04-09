@@ -115,7 +115,7 @@ const AboutSectionStyled = styled.section`
 
 const AboutMeHeadline = styled(HeadlineStyled)`
   color: ${({ theme }) => theme.accentColorPrimary};
-  margin-top: -6rem;
+  margin-top: -8rem;
   @media screen and (min-width: ${breakpoints.s}) {
     margin-top: -8rem;
   }
@@ -131,12 +131,12 @@ const AboutMeHeadline = styled(HeadlineStyled)`
 `;
 
 const ImageStyled = styled(motion(Image))`
-  width: 100%;
+  width: 80%;
+  justify-self: end;
   height: auto;
   object-fit: cover;
   @media screen and (min-width: ${breakpoints.s}) {
     width: 70%;
-    justify-self: end;
   }
   @media screen and (min-width: ${breakpoints.xl}) {
     width: 100%;
@@ -149,7 +149,7 @@ const AboutTextContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   max-width: ${breakpoints.s};
-  margin-top: -5rem;
+  margin-top: -7rem;
   @media screen and (min-width: ${breakpoints.s}) {
     gap: 2rem;
     margin-top: -6rem;

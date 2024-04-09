@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled, { useTheme } from "styled-components";
 import { motion, useAnimationControls } from "framer-motion";
+import { links } from "@/lib/data";
 import { HeadlineStyled } from "@/styles/styled";
 import {
   breakpoints,
@@ -9,8 +10,7 @@ import {
   inputAnimations,
   opacityAnimations,
 } from "@/styles/stylesConfig";
-import Icon from "./icons";
-import { links } from "@/lib/data";
+import Icon from "@/components/icons";
 
 export default function ContactSection() {
   const [messageSent, setMessageSent] = useState(false);
@@ -305,15 +305,23 @@ const ContactForm = styled(motion.form)`
     border-bottom: ${({ theme }) => `0.3rem solid ${theme.accentColorPrimary}`};
     padding: 0.5rem;
     transform-origin: left;
+    @media (hover: hover) {
+      &:hover {
+        cursor: text;
+      }
+    }
   }
 
   button {
     align-self: flex-start;
     background: none;
+    font-family: var(--fontHeadline);
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
     color: ${({ theme }) => theme.accentColorPrimary};
-    border: ${({ theme }) => `0.15rem solid ${theme.accentColorPrimary}`};
-    border-radius: 1rem;
-    padding: 0.5rem 2rem;
+    border: ${({ theme }) => `0.2rem solid ${theme.accentColorPrimary}`};
+    border-radius: 2rem;
+    padding: 0.5rem 1.5rem;
     @media (hover: hover) {
       &:hover {
         background-color: ${({ theme }) => theme.accentColorPrimary};

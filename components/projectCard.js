@@ -278,16 +278,23 @@ const ProjectCoverStyled = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme, $even }) =>
-    $even ? theme.accentColorPrimary : theme.bgColorSecondary};
+  background: ${({ theme, $even }) => `radial-gradient(circle at ${
+    $even ? "30% 20%" : "70% 80%"
+  },
+    ${
+      $even ? theme.accentColorPrimary : theme.bgColorSecondary
+    } 20%, #000 200%)`};
   transform-origin: top;
   h2 {
-    position: absolute;
     font-size: var(--fontSizeM);
     font-family: var(--fontHeadline);
     letter-spacing: 0.1rem;
-    color: ${({ theme }) => theme.bgColorPrimary};
+    color: #fafafa;
+    text-align: center;
     text-transform: uppercase;
+    @media screen and (min-width: ${breakpoints.s}) {
+      font-size: var(--fontSizeL);
+    }
   }
 `;
 
