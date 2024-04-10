@@ -187,7 +187,6 @@ const ProjectDetailsStyled = styled(motion.div)`
     column-gap: 0.5rem;
   }
   li {
-    list-style: none;
     display: inline-block;
     max-width: auto;
   }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
 import { links } from "@/lib/data";
@@ -52,7 +53,7 @@ export default function HeroSection() {
   }, [nameRef, hejRef, textRef, isClient]);
 
   return (
-    <HeroSectionStyled>
+    <HeroSectionStyled id="home">
       <PhotoWrapper
         $startOfLine={startOfLine}
         initial={{ opacity: 0, y: 100 }}
@@ -123,18 +124,20 @@ export default function HeroSection() {
           <span>KAMINSKY</span>
         </HeroHeadlineStyled>
         <HeroTextStyled>Junior Web Developer from Germany.</HeroTextStyled>
-        <ScrollDownIconStyled
-          variant="arrowDown"
-          size={fontSizes.xl}
-          color={theme.fontColorPrimary}
-          initial={{ opacity: 0, y: -50, rotate: 0 }}
-          animate={{ opacity: 1, y: 0, rotate: [0, 5, 0, -5, 0] }}
-          transition={{
-            delay: 2,
-            type: "spring",
-            rotate: { delay: 2.6, repeat: 3, duration: 0.2 },
-          }}
-        />
+        <ScrollDownLink href="/#projects">
+          <Icon
+            variant="arrowDown"
+            size={fontSizes.xl}
+            color={theme.fontColorPrimary}
+            initial={{ opacity: 0, y: -50, rotate: 0 }}
+            animate={{ opacity: 1, y: 0, rotate: [0, 5, 0, -5, 0] }}
+            transition={{
+              delay: 2,
+              type: "spring",
+              rotate: { delay: 2.6, repeat: 3, duration: 0.2 },
+            }}
+          />
+        </ScrollDownLink>
       </Wrapper>
     </HeroSectionStyled>
   );
@@ -238,7 +241,6 @@ const LineStyled = styled(motion.div)`
   margin-left: ${({ $startOfLine }) => `${$startOfLine.name + 20}px`};
   background-color: ${({ theme }) => theme.accentColorPrimary};
   transform-origin: bottom;
-  z-index: 1;
   @media screen and (orientation: landscape) {
     grid-row: 2;
     grid-column: 2;
@@ -252,7 +254,7 @@ const LineStyled = styled(motion.div)`
   }
 `;
 
-const ScrollDownIconStyled = styled(Icon)`
+const ScrollDownLink = styled(Link)`
   position: absolute;
   bottom: 3vw;
   right: 3vw;

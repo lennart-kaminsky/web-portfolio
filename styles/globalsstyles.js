@@ -63,6 +63,10 @@ export default createGlobalStyle`
     --fontSizeXXXL: 7rem;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--fontRegular);
     color: ${({ theme }) => theme.fontColorPrimary};
@@ -98,5 +102,9 @@ svg {
 a {
 text-decoration: none;
 color: inherit;
+}
+
+ul {
+  list-style: none;
 }
 `;

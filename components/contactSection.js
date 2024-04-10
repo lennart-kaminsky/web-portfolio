@@ -73,7 +73,7 @@ export default function ContactSection() {
   }
 
   return (
-    <ContactSectionStyled>
+    <ContactSectionStyled id="contact">
       <ContactText>
         <HeadlineStyled
           variants={opacityAnimations}

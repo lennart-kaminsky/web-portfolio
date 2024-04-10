@@ -6,7 +6,7 @@ import ProjectCard from "@/components/projectCard";
 
 export default function ProjectsSection() {
   return (
-    <ProjectsSectionStyled>
+    <ProjectsSectionStyled id="projects">
       <HeadlineStyled
         variants={opacityAnimations}
         initial="initial"

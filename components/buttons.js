@@ -5,7 +5,7 @@ import { darkTheme, lightTheme } from "@/styles/globalsstyles";
 import useSettingsStore from "@/stores/settingsStore";
 import Icon from "@/components/icons";
 
-export function ButtonDarkMode() {
+export function ButtonDarkMode({ size = fontSizes.l }) {
   const theme = useTheme();
   const { darkMode, toggleDarkMode } = useSettingsStore();
 
@@ -20,7 +20,7 @@ export function ButtonDarkMode() {
     >
       <Icon
         variant={darkMode ? "lightMode" : "darkMode"}
-        size={fontSizes.l}
+        size={size}
         color={theme.fontColorPrimary}
       />
     </ButtonDarkModeStyled>

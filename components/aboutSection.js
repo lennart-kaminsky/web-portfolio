@@ -28,7 +28,7 @@ export default function AboutSection() {
   }, [teckStackInView]);
 
   return (
-    <AboutSectionStyled>
+    <AboutSectionStyled id="about">
       <ImageStyled
         src="/images/bikepacking.jpg"
         alt="Photo of Lennart on a bikepacking trip"
@@ -189,7 +189,6 @@ const TechStackContainer = styled.div`
   gap: 2rem;
   padding-top: 1rem;
   ul {
-    list-style: none;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
