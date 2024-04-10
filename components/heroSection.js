@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styled, { useTheme } from "styled-components";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { links } from "@/lib/data";
 import {
   breakpoints,
@@ -12,6 +12,7 @@ import {
 import { HeadlineStyled } from "@/styles/styled";
 import Icon from "@/components/icons";
 import { ButtonDarkMode } from "@/components/buttons";
+import { useLkStore } from "@/stores";
 
 export default function HeroSection() {
   const [startOfLine, setStartOfLine] = useState({
@@ -20,12 +21,24 @@ export default function HeroSection() {
     textWidth: 0,
     textHeight: 0,
   });
+  const heroRef = useRef(null);
   const nameRef = useRef(null);
   const hejRef = useRef(null);
   const textRef = useRef(null);
   const theme = useTheme();
 
   const isClient = typeof window === "object";
+
+  const heroInView = useInView(heroRef, { amount: "some" });
+  const { setShowHeader } = useLkStore();
+
+  useEffect(() => {
+    if (heroInView) {
+      setShowHeader(false);
+    } else {
+      setShowHeader(true);
+    }
+  }, [heroInView]);
 
   useEffect(() => {
     if (!isClient) {
@@ -53,7 +66,7 @@ export default function HeroSection() {
   }, [nameRef, hejRef, textRef, isClient]);
 
   return (
-    <HeroSectionStyled id="home">
+    <HeroSectionStyled id="home" ref={heroRef}>
       <PhotoWrapper
         $startOfLine={startOfLine}
         initial={{ opacity: 0, y: 100 }}

@@ -2,12 +2,12 @@ import styled, { useTheme } from "styled-components";
 import { motion } from "framer-motion";
 import { buttonAnimations, fontSizes } from "@/styles/stylesConfig";
 import { darkTheme, lightTheme } from "@/styles/globalsstyles";
-import useSettingsStore from "@/stores/settingsStore";
+import { useLocalStorageStore } from "@/stores";
 import Icon from "@/components/icons";
 
 export function ButtonDarkMode({ size = fontSizes.l }) {
   const theme = useTheme();
-  const { darkMode, toggleDarkMode } = useSettingsStore();
+  const { darkMode, toggleDarkMode } = useLocalStorageStore();
 
   return (
     <ButtonDarkModeStyled

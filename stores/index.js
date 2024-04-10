@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const useSettingsStore = create(
+export const useLocalStorageStore = create(
   persist(
     (set, get) => ({
       darkMode: true,
@@ -13,4 +13,7 @@ const useSettingsStore = create(
   )
 );
 
-export default useSettingsStore;
+export const useLkStore = create((set) => ({
+  showHeader: false,
+  setShowHeader: (show) => set(() => ({ showHeader: show })),
+}));

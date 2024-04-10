@@ -1,13 +1,14 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { ButtonDarkMode } from "./buttons";
-import { breakpoints } from "@/styles/stylesConfig";
+import { breakpoints, buttonAnimations } from "@/styles/stylesConfig";
+import { useLkStore } from "@/stores";
 
 const navigationItems = [
-  { name: "Start", href: "/" },
+  { name: "LK", href: "/" },
   { name: "Projects", href: "/#projects" },
   { name: "About Me", href: "/#about" },
   { name: "Say Hej", href: "/#contact" },
@@ -15,6 +16,7 @@ const navigationItems = [
 
 export default function Header() {
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
+  const { showHeader } = useLkStore();
 
   const router = useRouter();
 
@@ -30,50 +32,100 @@ export default function Header() {
   return (
     <HeaderStyled>
       {/* MOBILE */}
-      <BurgerMenu onClick={() => toggleBurgerMenu()}>
-        <div>
-          <span>M</span>
-          <span>E</span>
-        </div>
-        <div>
-          <span>N</span>
-          <span>U</span>
-        </div>
-      </BurgerMenu>
-      {burgerMenuOpen && (
-        <BurgerNavigation>
-          <ul>
-            {navigationItems.map((item) => (
-              <li key={item.name}>
-                <button onClick={() => handleMenuClick(item.href)}>
-                  {item.name}
-                </button>
+      <AnimatePresence>
+        {showHeader && (
+          <BurgerMenu
+            key="burgerMenu"
+            onClick={() => toggleBurgerMenu()}
+            variants={buttonAnimations}
+            initial={{ rotate: 0, x: "-100vw" }}
+            animate={{
+              rotate: [0, 1080],
+              y: [10, -20, 10, -20, 0],
+              x: 0,
+              transition: { duration: 0.5, y: { ease: "easeInOut" } },
+            }}
+            exit={{ rotate: [360, 0], x: "100vw" }}
+            whileHover="hover"
+            whileTap="tap"
+          >
+            <div>
+              <span>M</span>
+              <span>E</span>
+            </div>
+            <div>
+              <span>N</span>
+              <span>U</span>
+            </div>
+          </BurgerMenu>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {burgerMenuOpen && (
+          <BurgerNavigation
+            initial={{ scale: 0 }}
+            animate={{
+              scale: 1,
+              transition: {
+                duration: 0.5,
+                ease: "backInOut",
+              },
+            }}
+            exit={{
+              opacity: 0,
+            }}
+          >
+            <ul>
+              {navigationItems.map((item) => (
+                <li key={item.name}>
+                  <motion.button
+                    onClick={() => handleMenuClick(item.href)}
+                    variants={buttonAnimations}
+                    whileHover="hover"
+                    whileTap="tap"
+                  >
+                    {item.name}
+                  </motion.button>
+                </li>
+              ))}
+              <li>
+                <ButtonDarkMode size="3rem" />
               </li>
-            ))}
-            <li>
-              <ButtonDarkMode size="3rem" />
-            </li>
-          </ul>
-        </BurgerNavigation>
-      )}
+            </ul>
+          </BurgerNavigation>
+        )}
+      </AnimatePresence>
       {/* DESKTOP */}
-      <Navigation>
-        <ul>
-          {navigationItems.map((item) => (
-            <li key={item.name}>
-              <Link href={item.href}>{item.name}</Link>
-            </li>
-          ))}
-          <li>
-            <ButtonDarkMode />
-          </li>
-        </ul>
-      </Navigation>
+      <AnimatePresence>
+        {showHeader && (
+          <Navigation
+            initial={{ opacity: 0, x: "-100vw" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ x: "100vw" }}
+          >
+            <ul>
+              {navigationItems.map((item) => (
+                <motion.li
+                  key={item.name}
+                  variants={buttonAnimations}
+                  whileHover="hover"
+                  whileTap="tap"
+                >
+                  <Link href={item.href}>{item.name}</Link>
+                </motion.li>
+              ))}
+              <li>
+                <ButtonDarkMode />
+              </li>
+            </ul>
+          </Navigation>
+        )}
+      </AnimatePresence>
     </HeaderStyled>
   );
 }
 
-const HeaderStyled = styled(motion.header)`
+const HeaderStyled = styled.header`
   position: fixed;
   z-index: 1;
   top: 0;
@@ -91,7 +143,7 @@ const HeaderStyled = styled(motion.header)`
   }
 `;
 
-const BurgerMenu = styled.button`
+const BurgerMenu = styled(motion.button)`
   z-index: 1;
   background: none;
   border: none;
@@ -104,12 +156,18 @@ const BurgerMenu = styled.button`
     display: flex;
     justify-content: space-between;
   }
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+      color: ${({ theme }) => theme.fontColorPrimary};
+    }
+  }
   @media screen and (min-width: ${breakpoints.m}) {
     display: none;
   }
 `;
 
-const BurgerNavigation = styled.nav`
+const BurgerNavigation = styled(motion.nav)`
   position: fixed;
   top: 0;
   left: 0;
@@ -119,6 +177,7 @@ const BurgerNavigation = styled.nav`
   align-items: center;
   background: ${({ theme }) => theme.bgColorSecondary};
   transition: background 1s;
+  transform-origin: top right;
   ul {
     display: flex;
     flex-direction: column;
@@ -146,7 +205,7 @@ const BurgerNavigation = styled.nav`
   }
 `;
 
-const Navigation = styled.nav`
+const Navigation = styled(motion.nav)`
   display: none;
   ul {
     display: flex;
@@ -157,6 +216,14 @@ const Navigation = styled.nav`
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     color: ${({ theme }) => theme.accentColorPrimary};
+  }
+  li {
+    @media (hover: hover) {
+      &:hover {
+        cursor: pointer;
+        color: ${({ theme }) => theme.fontColorPrimary};
+      }
+    }
   }
   button {
     display: flex;
