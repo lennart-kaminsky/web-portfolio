@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useState } from "react";
 import { useRouter } from "next/router";
-import { ButtonDarkMode } from "./buttons";
+import { motion, AnimatePresence } from "framer-motion";
+import styled from "styled-components";
 import { breakpoints, buttonAnimations } from "@/styles/stylesConfig";
 import { useLkStore } from "@/stores";
+import { ButtonDarkMode } from "@/components/buttons";
 
 const navigationItems = [
   { name: "LK", href: "/" },
@@ -16,9 +16,17 @@ const navigationItems = [
 
 export default function Header() {
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
+  const [initialShowHeader, setInitialShowHeader] = useState(false);
   const { showHeader } = useLkStore();
 
   const router = useRouter();
+
+  useEffect(() => {
+    const timeoutHeader = setTimeout(() => {
+      setInitialShowHeader(true);
+    }, 500);
+    return () => clearTimeout(timeoutHeader);
+  }, []);
 
   function toggleBurgerMenu() {
     setBurgerMenuOpen(!burgerMenuOpen);
@@ -28,14 +36,13 @@ export default function Header() {
     router.push(href);
     setBurgerMenuOpen(false);
   }
-
+  if (!initialShowHeader) return null;
   return (
     <HeaderStyled>
       {/* MOBILE */}
       <AnimatePresence>
         {showHeader && (
           <BurgerMenu
-            key="burgerMenu"
             onClick={() => toggleBurgerMenu()}
             variants={buttonAnimations}
             initial={{ rotate: 0, x: "-100vw" }}

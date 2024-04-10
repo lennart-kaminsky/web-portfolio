@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef } from "react";
 import Image from "next/image";
-import styled from "styled-components";
 import { motion, useInView, useAnimationControls } from "framer-motion";
+import styled from "styled-components";
 import { breakpoints, buttonAnimations } from "@/styles/stylesConfig";
 import { SecondHeadlineStyled } from "@/styles/styled";
 
@@ -277,12 +277,8 @@ const ProjectCoverStyled = styled(motion.div)`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: ${({ theme, $even }) => `radial-gradient(circle at ${
-    $even ? "30% 20%" : "70% 80%"
-  },
-    ${
-      $even ? theme.accentColorPrimary : theme.bgColorSecondary
-    } 20%, #000 200%)`};
+  background-color: ${({ theme, $even }) =>
+    $even ? theme.accentColorPrimary : theme.bgColorSecondary};
   transform-origin: top;
   h2 {
     font-size: var(--fontSizeM);

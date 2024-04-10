@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import Background from "@/components/background";
 import Header from "@/components/header";
 

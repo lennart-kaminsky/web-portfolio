@@ -1,18 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import styled, { useTheme } from "styled-components";
 import { motion, useInView } from "framer-motion";
-import { links } from "@/lib/data";
+import styled, { useTheme } from "styled-components";
 import {
   breakpoints,
   buttonAnimations,
   fontSizes,
 } from "@/styles/stylesConfig";
 import { HeadlineStyled } from "@/styles/styled";
+import { links } from "@/lib/data";
+import { useLkStore } from "@/stores";
 import Icon from "@/components/icons";
 import { ButtonDarkMode } from "@/components/buttons";
-import { useLkStore } from "@/stores";
 
 export default function HeroSection() {
   const [startOfLine, setStartOfLine] = useState({
@@ -29,16 +29,16 @@ export default function HeroSection() {
 
   const isClient = typeof window === "object";
 
-  const heroInView = useInView(heroRef, { amount: "some" });
+  const heroIsInView = useInView(heroRef, { amount: "some" });
   const { setShowHeader } = useLkStore();
 
   useEffect(() => {
-    if (heroInView) {
+    if (heroIsInView) {
       setShowHeader(false);
     } else {
       setShowHeader(true);
     }
-  }, [heroInView]);
+  }, [heroIsInView]);
 
   useEffect(() => {
     if (!isClient) {
@@ -72,7 +72,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 1,
+          delay: 1.4,
           duration: 1.3,
           ease: "easeOut",
           type: "spring",
@@ -115,7 +115,7 @@ export default function HeroSection() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{
-            delay: 1,
+            delay: 1.4,
             duration: 1.3,
             ease: "easeOut",
             type: "spring",
@@ -125,7 +125,7 @@ export default function HeroSection() {
       <Wrapper
         ref={textRef}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: 0.5, duration: 0.5 } }}
+        animate={{ opacity: 1, transition: { delay: 0.9, duration: 0.5 } }}
       >
         <HeroTextStyled>
           <span ref={hejRef}>Hej and welcome! I{"'"}m</span>
@@ -145,9 +145,9 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: -50, rotate: 0 }}
             animate={{ opacity: 1, y: 0, rotate: [0, 5, 0, -5, 0] }}
             transition={{
-              delay: 2,
+              delay: 2.4,
               type: "spring",
-              rotate: { delay: 2.6, repeat: 3, duration: 0.2 },
+              rotate: { delay: 3, repeat: 3, duration: 0.2 },
             }}
           />
         </ScrollDownLink>
