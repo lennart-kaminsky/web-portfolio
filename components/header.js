@@ -45,10 +45,10 @@ export default function Header() {
           <BurgerMenu
             onClick={() => toggleBurgerMenu()}
             variants={buttonAnimations}
-            initial={{ rotate: 0, x: "-100vw" }}
+            initial={{ rotate: 0, x: -100 }}
             animate={{
-              rotate: [0, 1080],
-              y: [10, -20, 10, -20, 0],
+              rotate: [0, 360],
+              y: [-40, 0, 10, -20, 0],
               x: 0,
               transition: { duration: 0.5, y: { ease: "easeInOut" } },
             }}
@@ -106,8 +106,12 @@ export default function Header() {
       <AnimatePresence>
         {showHeader && (
           <Navigation
-            initial={{ opacity: 0, x: "-100vw" }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -300 }}
+            animate={{
+              opacity: 1,
+              x: 0,
+              transition: { duration: 0.5, ease: "backInOut" },
+            }}
             exit={{ x: "100vw" }}
           >
             <ul>
