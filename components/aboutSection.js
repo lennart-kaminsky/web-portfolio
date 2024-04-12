@@ -32,8 +32,8 @@ export default function AboutSection() {
       <ImageStyled
         src="/images/bikepacking.jpg"
         alt="Photo of Lennart on a bikepacking trip"
-        width={6000}
-        height={4000}
+        width={1920}
+        height={1280}
         variants={opacityAnimations}
         initial="initial"
         whileInView="whileInView"

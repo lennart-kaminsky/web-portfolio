@@ -254,6 +254,7 @@ const LineStyled = styled(motion.div)`
   margin-left: ${({ $startOfLine }) => `${$startOfLine.name + 20}px`};
   background-color: ${({ theme }) => theme.accentColorPrimary};
   transform-origin: bottom;
+  z-index: 1;
   @media screen and (orientation: landscape) {
     grid-row: 2;
     grid-column: 2;
