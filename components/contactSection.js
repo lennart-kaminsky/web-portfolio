@@ -99,7 +99,7 @@ export default function ContactSection() {
           whileInView="whileInView"
           viewport={{ amount: 1, once: true }}
         >
-          Alternatively you can write me on LinkedIn or just send a mail to
+          Alternatively you can text me on LinkedIn or just send an email to
         </motion.p>
         <EmailLink
           href="mailto:hej@lennartkaminsky.dev"
