@@ -186,6 +186,7 @@ export default function ContactSection() {
                 id="message"
                 name="message"
                 rows="4"
+                required
                 variants={inputAnimations}
                 initial="initial"
                 whileInView="whileInView"

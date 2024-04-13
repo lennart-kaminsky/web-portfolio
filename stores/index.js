@@ -15,5 +15,5 @@ export const useLocalStorageStore = create(
 
 export const useLkStore = create((set) => ({
   showHeader: false,
-  setShowHeader: (show) => set(() => ({ showHeader: show })),
+  setShowHeader: (value) => set(() => ({ showHeader: value })),
 }));

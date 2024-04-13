@@ -28,6 +28,14 @@ export default function Header() {
     return () => clearTimeout(timeoutHeader);
   }, []);
 
+  useEffect(() => {
+    if (burgerMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [burgerMenuOpen]);
+
   function toggleBurgerMenu() {
     setBurgerMenuOpen(!burgerMenuOpen);
   }
